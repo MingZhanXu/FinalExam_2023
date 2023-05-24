@@ -114,10 +114,12 @@ class Test_CCheckNeedMoney():
 #測試正確用法needMoney函數
 class Test_CNeedMoney():
     #測試needMoney計算結果
-    @pytest.mark.parametrize(argnames='startD, endD, money', argvalues=[('2023-01-01 00:00:00','2023-01-01 00:00:00', 0),
-                                                                        ('2023-01-01 00:00:00','2023-01-01 00:00:00', 0)])
+    @pytest.mark.parametrize(argnames='startD, endD, money', argvalues=[('2023-05-22 00:00:00','2023-05-22 00:00:00', 0),
+                                                                        ('2023-05-22 00:00:00','2023-05-22 00:00:01', 15),
+                                                                        ('2023-05-22 00:00:01','2023-05-22 00:00:00', 15),
+                                                                        ('2023-05-22 00:00:00','2023-05-23 00:00:00', 300)])
     def test_C_NeedMoney(self, startD:str, endD:str, money:int):
         my = PPM()
         my.setStartTime(startD)
         my.setEndTime(endD)
-        assert my.needMoney == money
+        assert my.needMoney() == money
