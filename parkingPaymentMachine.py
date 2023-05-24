@@ -82,19 +82,7 @@ class PPM():
     #正式用按鈕 無條件進位
     def check(self):
         self.endTime = DT.now()
-        self.needMoney()
-        self.printStr = f'開始停車時間 : {self.startTime}\n結束停車時間 : {self.endTime}\n'
-        if(self.nextDay == 0):
-            self.printStr += f'共停了 {int(math.ceil((self.endTime - self.startTime).total_seconds()/60))} 分鐘\n'
-        elif(self.nextDay == 1):
-            d1 = DT.strptime((self.startTime+datetime.timedelta(days=1)).date().strftime('%Y-%m-%d'),'%Y-%m-%d')
-            d2 = DT.strptime((self.endTime).date().strftime('%Y-%m-%d'),'%Y-%m-%d')
-            self.printStr += f'第一天共停了 {int(math.ceil((d1 - self.startTime).total_seconds()/60))} 分鐘，第二天共停了 {int(math.ceil((self.endTime -d2).total_seconds()/60))} 分鐘\n'
-        else:
-            d1 = DT.strptime((self.startTime+datetime.timedelta(days=1)).date().strftime('%Y-%m-%d'),'%Y-%m-%d')
-            d2 = DT.strptime((self.endTime).date().strftime('%Y-%m-%d'),'%Y-%m-%d')
-            self.printStr += f'第一天共停了 {int(math.ceil((d1 - self.startTime).total_seconds()/60))} 分鐘，最後一天共停了 {int(math.ceil((self.endTime -d2).total_seconds()/60))} 分鐘，並且在這段期間共停了 {self.nextDay - 1} 天\n'
-        print(self.printStr)
+        self.testCheck()
     #測試用按鈕 無條件進位
     def testCheck(self):
         self.needMoney()
@@ -111,6 +99,7 @@ class PPM():
             self.printStr += f'第一天共停了 {int(math.ceil((d1 - self.startTime).total_seconds()/60))} 分鐘，最後一天共停了 {int(math.ceil((self.endTime -d2).total_seconds()/60))} 分鐘，並且在這段期間共停了 {self.nextDay - 1} 天\n'
         print(self.printStr)
         print(f'需付 {self.money} 元\n')
+        return self.printStr + '\n' + f'需付 {self.money} 元\n'
     #輸入硬幣 c_mm 硬幣大小 c_m 硬幣磁力
     def pay(self, c_mm, c_m):
         #if與elif的物品會存放在一個暫存箱
@@ -169,9 +158,9 @@ class PPM():
 if __name__ == '__main__':
     os.system('cls')
     my = PPM()
-    my.setStartTime('2023-05-25 23:59:59')
-    my.setEndTime('2023-05-26 00:30:01')
+    my.setStartTime('2023-05-22 00:00:00')
+    my.setEndTime('2023-05-22 00:00:00')
     my.needMoney()
-    my.testCheck()
+    print(f'####################################\n{my.testCheck()}\n####################################################')
     while(my.pay(28,3) == 0):
         time.sleep(1)
