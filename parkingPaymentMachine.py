@@ -82,7 +82,7 @@ class PPM():
     #正式用按鈕 無條件進位
     def check(self):
         self.endTime = DT.now()
-        self.testCheck()
+        print(self.testCheck())
     #測試用按鈕 無條件進位
     def testCheck(self):
         self.needMoney()
@@ -97,8 +97,6 @@ class PPM():
             d1 = DT.strptime((self.startTime+datetime.timedelta(days=1)).date().strftime('%Y-%m-%d'),'%Y-%m-%d')
             d2 = DT.strptime((self.endTime).date().strftime('%Y-%m-%d'),'%Y-%m-%d')
             self.printStr += f'第一天共停了 {int(math.ceil((d1 - self.startTime).total_seconds()/60))} 分鐘，最後一天共停了 {int(math.ceil((self.endTime -d2).total_seconds()/60))} 分鐘，並且在這段期間共停了 {self.nextDay - 1} 天\n'
-        print(self.printStr)
-        print(f'需付 {self.money} 元\n')
         return self.printStr + '\n' + f'需付 {self.money} 元\n'
     #輸入硬幣 c_mm 硬幣大小 c_m 硬幣磁力
     def pay(self, c_mm, c_m):
@@ -112,8 +110,7 @@ class PPM():
         #直接歸還
         else:
             os.system('cls')
-            print(self.printStr)
-            print('\n\n這不是可識別的硬幣')
+            print(f'{self.printStr}\n\n這不是可識別的硬幣')
             return 1
         needMoneyD = self.nowMoney - self.money
         if(needMoneyD < 0):
@@ -161,6 +158,6 @@ if __name__ == '__main__':
     my.setStartTime('2023-05-22 00:00:00')
     my.setEndTime('2023-05-22 00:00:00')
     my.needMoney()
-    print(f'####################################\n{my.testCheck()}\n####################################################')
+    print(my.testCheck())
     while(my.pay(28,3) == 0):
         time.sleep(1)
