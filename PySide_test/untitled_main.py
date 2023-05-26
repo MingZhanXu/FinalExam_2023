@@ -2,6 +2,7 @@ import sys
 from PySide6.QtWidgets import (QApplication, QMainWindow, QButtonGroup)
 from PySide6.QtCore import (QFile)
 from untitled_ui import Ui_Form
+from PySide6.QtGui import  Qt
 import re
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -10,7 +11,8 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.txt = ""
-
+        self.setWindowFlag(Qt.FramelessWindowHint)
+        self.ui.keyboradWidget.setGeometry(50,0,self.ui.keyboradWidget.width(),self.ui.keyboradWidget.height())
         #將數字鍵添加事件
         btn = "btn_n"
         for i in range(10):
@@ -22,7 +24,7 @@ class MainWindow(QMainWindow):
 
         self.ui.btn_inquire.clicked.connect(self.inquire)
         self.ui.btn_del.clicked.connect(self.keyboard_del)
-        self.ui.btn_dash.clicked.connect(self.keyboard_cls)
+        self.ui.btn_cls.clicked.connect(self.keyboard_cls)
     #查詢
     def inquire(self):
         print(self.txt)
@@ -53,8 +55,9 @@ class MainWindow(QMainWindow):
         self.txt = ""
         self.ui.edit_inquire.setText(self.txt)
         return self.txt
+    
 if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()
-    window.show()
+    window.showMaximized()
     sys.exit(app.exec_())
