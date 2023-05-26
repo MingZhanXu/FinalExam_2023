@@ -30,12 +30,22 @@ class MainWindow(QMainWindow):
         return self.txt
     #螢幕鍵盤
     def keyboard(self):
-        self.txt = self.txt + self.sender().text()
-        self.ui.edit_inquire.setText(self.txt)
+        key = self.sender().text()
+        if (ord(key) >= ord("A") and ord(key) <= ord("Z") and len(self.txt) < 3):
+            self.txt += self.sender().text()
+            if (len(self.txt) == 3):
+                self.txt += "-"
+            self.ui.edit_inquire.setText(self.txt)
+        elif (ord(key) >= ord("0") and ord(key) <= ord("9") and len(self.txt) < 8 and len(self.txt) > 3):
+            self.txt = self.txt + self.sender().text()
+            self.ui.edit_inquire.setText(self.txt)
         return self.txt
     #del按鍵
     def keyboard_del(self):
-        self.txt = self.txt[:-1]
+        if (len(self.txt) == 4):
+            self.txt = self.txt[:-2]
+        else:
+            self.txt = self.txt[:-1]
         self.ui.edit_inquire.setText(self.txt)
         return self.txt
     #cls按鍵
