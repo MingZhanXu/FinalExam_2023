@@ -36,8 +36,8 @@
      <rect>
       <x>628</x>
       <y>752</y>
-      <width>674</width>
-      <height>222</height>
+      <width>660</width>
+      <height>225</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="keyborad">

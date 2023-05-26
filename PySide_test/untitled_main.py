@@ -2,7 +2,7 @@ import sys
 from PySide6.QtWidgets import (QApplication, QMainWindow, QButtonGroup)
 from PySide6.QtCore import (QFile)
 from untitled_ui import Ui_Form
-from PySide6.QtGui import  Qt
+from PySide6.QtGui import  (Qt, QGuiApplication)
 import re
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -10,21 +10,27 @@ class MainWindow(QMainWindow):
         self.ui = Ui_Form()
         self.ui.setupUi(self)
 
+        #查詢車牌文字
         self.txt = ""
+        #調整畫面
         self.setWindowFlag(Qt.FramelessWindowHint)
-        self.ui.keyboradWidget.setGeometry(50,0,self.ui.keyboradWidget.width(),self.ui.keyboradWidget.height())
-        #將數字鍵添加事件
+        self.screen = QGuiApplication.primaryScreen().geometry()
+        self.width = self.screen.width()
+        self.height = self.screen.height()
+        #鍵盤寬度660，鍵盤高度225
+        self.ui.keyboradWidget.setGeometry(self.width/2 - 330,self.height - 275,self.ui.keyboradWidget.width(),self.ui.keyboradWidget.height())
+
+        #將鍵盤添加事件
         btn = "btn_n"
         for i in range(10):
             getattr(self.ui ,(btn + str(i))).clicked.connect(self.keyboard)
-        #將英文鍵添加事件
         btn = "btn_"
         for i in range(26):
             getattr(self.ui ,(btn + chr(65 + i))).clicked.connect(self.keyboard)
-
-        self.ui.btn_inquire.clicked.connect(self.inquire)
         self.ui.btn_del.clicked.connect(self.keyboard_del)
         self.ui.btn_cls.clicked.connect(self.keyboard_cls)
+        
+        self.ui.btn_inquire.clicked.connect(self.inquire)
     #查詢
     def inquire(self):
         print(self.txt)
@@ -42,7 +48,7 @@ class MainWindow(QMainWindow):
             self.txt = self.txt + self.sender().text()
             self.ui.edit_inquire.setText(self.txt)
         return self.txt
-    #del按鍵
+    #刪除按鍵
     def keyboard_del(self):
         if (len(self.txt) == 4):
             self.txt = self.txt[:-2]
@@ -50,7 +56,7 @@ class MainWindow(QMainWindow):
             self.txt = self.txt[:-1]
         self.ui.edit_inquire.setText(self.txt)
         return self.txt
-    #cls按鍵
+    #清空按鍵
     def keyboard_cls(self):
         self.txt = ""
         self.ui.edit_inquire.setText(self.txt)

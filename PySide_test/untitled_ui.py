@@ -32,7 +32,7 @@ class Ui_Form(object):
         self.frame.setFrameShadow(QFrame.Raised)
         self.keyboradWidget = QWidget(self.frame)
         self.keyboradWidget.setObjectName(u"keyboradWidget")
-        self.keyboradWidget.setGeometry(QRect(628, 752, 674, 222))
+        self.keyboradWidget.setGeometry(QRect(628, 752, 660, 225))
         self.keyborad = QHBoxLayout(self.keyboradWidget)
         self.keyborad.setObjectName(u"keyborad")
         self.keyborad.setContentsMargins(0, 0, 0, 0)
