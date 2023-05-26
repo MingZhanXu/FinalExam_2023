@@ -17,8 +17,8 @@ class MainWindow(QMainWindow):
         self.screen = QGuiApplication.primaryScreen().geometry()
         self.width = self.screen.width()
         self.height = self.screen.height()
-        #鍵盤寬度660，鍵盤高度225
-        self.ui.keyboradWidget.setGeometry(self.width/2 - 330,self.height - 275,self.ui.keyboradWidget.width(),self.ui.keyboradWidget.height())
+        #鍵盤寬度660，鍵盤高度225，挑高50
+        self.ui.keyboradWidget.setGeometry(self.width/2 - 330, self.height - 275, self.ui.keyboradWidget.width(), self.ui.keyboradWidget.height())
 
         #將鍵盤添加事件
         btn = "btn_n"
