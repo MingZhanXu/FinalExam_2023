@@ -79,11 +79,11 @@ class PPM():
             self.money = PPM.checkNeedMoney((self.startTime.weekday()),int(math.ceil((self.endTime-self.startTime).total_seconds()/(60*30))))
         return self.money
 
-    #正式用按鈕 無條件進位
+    #顯示帳單
     def check(self):
         self.endTime = DT.now()
         print(self.testCheck())
-    #測試用按鈕 無條件進位
+    #計算帳單
     def testCheck(self):
         self.needMoney()
         self.printStr = f'開始停車時間 : {self.startTime}\n結束停車時間 : {self.endTime}\n'
