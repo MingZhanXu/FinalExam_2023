@@ -1,14 +1,15 @@
 import sys
 from PySide6.QtWidgets import (QApplication, QMainWindow, QButtonGroup)
 from PySide6.QtCore import (QFile)
-from untitled_ui import Ui_Form
+from keyboardWindow_ui import Ui_Form as keyboardWindow
 from PySide6.QtGui import  (Qt, QGuiApplication)
 #引入計算用class
 from parkingPaymentMachine import PPM
+
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
-        self.ui = Ui_Form()
+        self.ui = keyboardWindow()
         self.ui.setupUi(self)
 
         #查詢車牌文字

@@ -1,0 +1,20 @@
+table_1(stop car)
+key(carN) startT place
+table_2(find table_1, stop time)
+key(carN) stopT place money=-1 fin=0 ST
+    find carN and place
+        fin=0, insert (carN, place, ST=now); 5 min after remove, wait for insert money
+        fin=0 
+    check and insert money and fin==0
+        ST=now fin=1, fin=2
+    cancel
+        fin=9
+    fin==2
+        stopT = endT and carN = carN and money = money, fin=9
+    fin==9
+        remove
+table_3
+key(starT) endT money place
+#everyDay check data or everyWeek
+table_4
+key(starT) errorType

@@ -45,7 +45,7 @@ class PPM():
         return error
     #計算跨日
     def checkTime(self):
-        #如果開始日期小於結束日期則互換
+        #如果開始日期小於結束日期則互換，就算出現bug也優先於計算
         if(self.endTime == None):
             self.endTime = DT.now()
         if(self.startTime > self.endTime):
