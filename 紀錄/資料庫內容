@@ -1,6 +1,7 @@
-table_1(stop car)
+
+table_1
 key(carN) startT place
-table_2(find table_1, stop time)
+table_2
 key(carN) stopT place money=-1 fin=0 ST
     find carN and place
         fin=0, insert (carN, place, ST=now); 5 min after remove, wait for insert money
