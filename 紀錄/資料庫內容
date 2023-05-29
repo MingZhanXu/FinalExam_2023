@@ -1,5 +1,5 @@
 
-table_1
+table_1(start_parking)
 key(carN) startT place
 table_2
 key(carN) stopT place money=-1 fin=0 ST

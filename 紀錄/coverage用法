@@ -1,0 +1,2 @@
+coverage run --source=parkingPaymentMachine -m pytest Test_PPM.py
+coverage report -m 
