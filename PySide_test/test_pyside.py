@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import (QApplication, QMainWindow, QButtonGroup)
 from PySide6.QtCore import (QFile)
 from untitled_ui import Ui_Form
-from untitled_main import MainWindow
+from Form_PPM import MainWindow
 from PySide6.QtGui import  Qt
 
 def test_hello(qtbot):
