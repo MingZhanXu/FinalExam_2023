@@ -5,13 +5,14 @@ name: CI
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+  push
+  # push:
+  #   branches: [ "master" ]
+  # pull_request:
+  #   branches: [ "master" ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  # # Allows you to run this workflow manually from the Actions tab
+  # workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -37,17 +38,15 @@ jobs:
       - name: Install pytest-qt module
         run: pip install pytest-qt
 
-      - name: execute CI test(test_PPM)
-        run: coverage run --source=parkingPaymentMachine -m pytest ./test/Test_PPM.py
+      - name: execute CI test
+        run: coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py ./test/Test_PPMWindow.py -v
 
-      - name: Show the unittest coverage of codes(test_PPM)
+      - name: Show the unittest coverage of codes
         run: coverage report -m 
 
-      - name: execute CI test(test_PPMWindow.py)
-        run: coverage run --source=PPM_window -m pytest ./test/Test_PPMWindow.py
-
-      - name: Show the unittest coverage of codes(test_PPMWindow.py)
-        run: coverage report -m 
+      # - name: Generate html(the unittest coverage of codes)
+      #   run: coverage html
+        
       # Runs a single command using the runners shell
       #- name: Run a one-line script
       #  run: echo Hello, world!

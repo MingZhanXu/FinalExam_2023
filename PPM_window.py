@@ -3,9 +3,9 @@ from PySide6.QtWidgets import (QApplication, QMainWindow)
 from PySide6.QtCore import (QFile)
 from PySide6.QtGui import  (Qt, QGuiApplication)
 
-from parkingPaymentMachine import PPM
-from paymentWindow_ui import Ui_Form as paymentWindow
-from keyboardWindow_ui import Ui_Form as keyboardWindow
+from lib.PPM.PPM import PPM
+from lib.keyboardWindow.keyboardWindow_ui import Ui_Form as keyboardWindow
+from lib.paymentWindow.paymentWindow_ui import Ui_Form as paymentWindow
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
