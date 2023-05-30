@@ -34,8 +34,11 @@ jobs:
       - name: Install pyside6 module
         run: pip install pyside6
       
+      - name: Install yum module
+        run: sudo apt install yum -y
+
       - name: Install mesa-libGL module
-        run: sudo apt install mesa-libGL -y
+        run: sudo yum install mesa-libGL -y
         
       - name: execute CI test(test_PPM)
         run: coverage run --source=parkingPaymentMachine -m pytest ./test/Test_PPM.py
