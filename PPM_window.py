@@ -69,7 +69,7 @@ class keyboardWindow(QMainWindow):
         return self.txt
 
 class patmentWindow(QMainWindow):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, txt=""):
         super(patmentWindow, self).__init__(parent)
         self.ui = paymentScreen()
         self.ui.setupUi(self)
@@ -78,13 +78,19 @@ class patmentWindow(QMainWindow):
         self.screen = QGuiApplication.primaryScreen().geometry()
         self.width = self.screen.width()
         self.height = self.screen.height()
-
+        #初始化變數
+        self.txt = txt
+        self.PPM = PPM(self.txt)
+        #綁定事件
         self.ui.btn_cancel.clicked.connect(self.cancel)
     def cancel(self):
         self.KS = keyboardWindow(self)
         self.KS.showMaximized()
         self.hide()
-
+    def check(self):
+        self.KS = keyboardWindow(self)
+        self.KS.showMaximized()
+        self.hide()
 if __name__ == "__main__":
     app = QApplication([])
     window = keyboardWindow()
