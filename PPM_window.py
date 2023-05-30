@@ -4,12 +4,12 @@ from PySide6.QtCore import (QFile)
 from PySide6.QtGui import  (Qt, QGuiApplication)
 
 from lib.PPM.PPM import PPM
-from lib.keyboardWindow.keyboardWindow_ui import Ui_Form as keyboardWindow
-from lib.paymentWindow.paymentWindow_ui import Ui_Form as paymentWindow
+from lib.keyboardScreen.keyboardScreen_ui import Ui_Form as keyboardScreen
+from lib.paymentScreen.paymentScreen_ui import Ui_Form as paymentScreen
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
-        self.ui = keyboardWindow()
+        self.ui = keyboardScreen()
         self.ui.setupUi(self)
 
         #查詢車牌文字
