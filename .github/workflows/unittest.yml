@@ -31,6 +31,9 @@ jobs:
       - name: Install pytest module
         run: pip install pytest
 
+      - name: Install pyside6 module
+        run: pip install pyside6
+        
       - name: execute CI test(test_PPM)
         run: coverage run --source=parkingPaymentMachine -m pytest ./test/Test_PPM.py
 
