@@ -43,6 +43,10 @@ jobs:
 
       - name: Show the unittest coverage of codes
         run: coverage report -m 
+
+      - name: Generate html(the unittest coverage of codes)
+        run: coverage html
+        
       # Runs a single command using the runners shell
       #- name: Run a one-line script
       #  run: echo Hello, world!
