@@ -23,7 +23,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install coverage module
         run: pip install coverage
@@ -33,6 +33,9 @@ jobs:
 
       - name: Install pyside6 module
         run: pip install pyside6
+      
+      - name: Install libgl1-mesa-glx module
+        run: apt install libgl1-mesa-glx
         
       - name: execute CI test(test_PPM)
         run: coverage run --source=parkingPaymentMachine -m pytest ./test/Test_PPM.py
