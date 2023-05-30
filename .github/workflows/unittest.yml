@@ -35,7 +35,7 @@ jobs:
         run: pip install pyside6
       
       - name: Install libgl1-mesa-glx module
-        run: apt install libgl1-mesa-glx
+        run: sudo apt install libgl1-mesa-glx
         
       - name: execute CI test(test_PPM)
         run: coverage run --source=parkingPaymentMachine -m pytest ./test/Test_PPM.py
