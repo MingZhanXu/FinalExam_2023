@@ -1,5 +1,5 @@
 import sys
-from PySide6.QtWidgets import (QApplication, QMainWindow)
+from PySide6.QtWidgets import (QApplication, QMainWindow, QStackedWidget)
 from PySide6.QtCore import (QFile)
 from PySide6.QtGui import  (Qt, QGuiApplication)
 
@@ -11,7 +11,6 @@ class keyboardWindow(QMainWindow):
         super(keyboardWindow, self).__init__(parent)
         self.ui = keyboardScreen()
         self.ui.setupUi(self)
-
         #查詢車牌文字
         self.txt = ""
         #調整畫面
@@ -35,12 +34,12 @@ class keyboardWindow(QMainWindow):
         self.ui.btn_inquire.clicked.connect(self.inquire)
     #查詢
     def inquire(self):
-        print(self.txt)
-        print([ord(txt) for txt in self.txt])
+        # print(self.txt)
+        # print([ord(txt) for txt in self.txt])
         if(len(self.txt) > 7):
-            self.PS = patmentWindow(self)
-            self.PS.showMaximized()
             self.hide()
+            self.PW = patmentWindow(self, self.txt)
+            self.PW.showMaximized()
         return self.txt
     #螢幕鍵盤
     def keyboard(self):
@@ -81,16 +80,22 @@ class patmentWindow(QMainWindow):
         #初始化變數
         self.txt = txt
         self.PPM = PPM(self.txt)
+        self.ui.label_print.setText(self.txt)
         #綁定事件
         self.ui.btn_cancel.clicked.connect(self.cancel)
+        self.ui.btn_check.clicked.connect(self.check)
     def cancel(self):
+        self.hide()
         self.KS = keyboardWindow(self)
         self.KS.showMaximized()
-        self.hide()
     def check(self):
+        self.hide()
         self.KS = keyboardWindow(self)
         self.KS.showMaximized()
-        self.hide()
+
+# class mainWindow():
+#     def __init__(self):
+        
 if __name__ == "__main__":
     app = QApplication([])
     window = keyboardWindow()
