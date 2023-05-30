@@ -1,11 +1,11 @@
 import sys
-from PySide6.QtWidgets import (QApplication, QMainWindow, QButtonGroup)
+from PySide6.QtWidgets import (QApplication, QMainWindow)
 from PySide6.QtCore import (QFile)
-from keyboardWindow_ui import Ui_Form as keyboardWindow
 from PySide6.QtGui import  (Qt, QGuiApplication)
-#引入計算用class
-from parkingPaymentMachine import PPM
 
+from parkingPaymentMachine import PPM
+from paymentWindow_ui import Ui_Form as paymentWindow
+from keyboardWindow_ui import Ui_Form as keyboardWindow
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
