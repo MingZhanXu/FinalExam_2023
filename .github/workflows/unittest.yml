@@ -35,7 +35,7 @@ jobs:
         run: pip install pyside6
 
       - name: Install opencv-python-headless module
-        run: sudo yum install opencv-python-headless -y
+        run: sudo apt install opencv-python-headless -y
         
       - name: execute CI test(test_PPM)
         run: coverage run --source=parkingPaymentMachine -m pytest ./test/Test_PPM.py
