@@ -1,6 +1,5 @@
 import pytest
 from parkingPaymentMachine import PPM
-import os
 
 #正確為C，錯誤為M
 #CReturn 正確回傳為 0
