@@ -6,9 +6,9 @@ from PySide6.QtGui import  (Qt, QGuiApplication)
 from lib.PPM.PPM import PPM
 from lib.keyboardScreen.keyboardScreen_ui import Ui_Form as keyboardScreen
 from lib.paymentScreen.paymentScreen_ui import Ui_Form as paymentScreen
-class MainWindow(QMainWindow):
+class keyboardWindow(QMainWindow):
     def __init__(self, parent=None):
-        super(MainWindow, self).__init__(parent)
+        super(keyboardWindow, self).__init__(parent)
         self.ui = keyboardScreen()
         self.ui.setupUi(self)
 
@@ -37,6 +37,10 @@ class MainWindow(QMainWindow):
     def inquire(self):
         print(self.txt)
         print([ord(txt) for txt in self.txt])
+        if(len(self.txt) > 7):
+            self.PS = patmentWindow(self)
+            self.PS.showMaximized()
+            self.hide()
         return self.txt
     #螢幕鍵盤
     def keyboard(self):
@@ -63,9 +67,26 @@ class MainWindow(QMainWindow):
         self.txt = ""
         self.ui.edit_inquire.setText(self.txt)
         return self.txt
-    
+
+class patmentWindow(QMainWindow):
+    def __init__(self, parent=None):
+        super(patmentWindow, self).__init__(parent)
+        self.ui = paymentScreen()
+        self.ui.setupUi(self)
+        #調整畫面
+        self.setWindowFlag(Qt.FramelessWindowHint)
+        self.screen = QGuiApplication.primaryScreen().geometry()
+        self.width = self.screen.width()
+        self.height = self.screen.height()
+
+        self.ui.btn_cancel.clicked.connect(self.cancel)
+    def cancel(self):
+        self.KS = keyboardWindow(self)
+        self.KS.showMaximized()
+        self.hide()
+
 if __name__ == "__main__":
     app = QApplication([])
-    window = MainWindow()
+    window = keyboardWindow()
     window.showMaximized()
     sys.exit(app.exec_())
