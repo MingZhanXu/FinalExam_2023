@@ -34,8 +34,8 @@ jobs:
       - name: Install pyside6 module
         run: pip install pyside6
       
-      - name: Install libgl1-mesa-glx module
-        run: sudo apt install ffmpeg libsm6 libxext6  -y
+      - name: Install libgl1 module
+        run: sudo apt install libgl1 -y
         
       - name: execute CI test(test_PPM)
         run: coverage run --source=parkingPaymentMachine -m pytest ./test/Test_PPM.py
