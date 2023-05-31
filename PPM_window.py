@@ -16,7 +16,7 @@ class keyboardWindow(QMainWindow):
         #初始化變數
         self.txt = ""
         if(PW == None):
-            self.PW = patmentWindow(self, KW=self)
+            self.PW = patmentWindow(KW=self)
         else:
             self.PW = PW
         #調整畫面
@@ -86,7 +86,7 @@ class patmentWindow(QMainWindow):
         self.height = self.screen.height()
         #初始化變數
         if(KW == None):
-            self.KW = keyboardWindow(self, PW=self)
+            self.KW = keyboardWindow(PW=self)
         else:
             self.KW = KW
         self.txt = self.KW.txt
@@ -95,15 +95,19 @@ class patmentWindow(QMainWindow):
         #綁定事件
         self.ui.btn_cancel.clicked.connect(self.cancel)
         self.ui.btn_check.clicked.connect(self.check)
+    #取消
     def cancel(self):
         self.KW.showMaximized()
+        self.KW.txt = ""
+        self.KW.ui.edit_inquire.setText(self.KW.txt)
         self.hide()
+    #確認
     def check(self):
         self.KW.showMaximized()
+        self.KW.txt = ""
+        self.KW.ui.edit_inquire.setText(self.KW.txt)
         self.hide()
 
-# class mainWindow():
-#     def __init__(self):
         
 if __name__ == "__main__":
     app = QApplication([])
