@@ -1,21 +1,25 @@
 
 table_1(start_parking)
-key(carN) startT place
+INSERT INTO `table_1`(`licensePlateNumber`, `place`) VALUES ('AAA-0123', '00-00-00-00-00-00')
+key(licensePlateNumber) startT place
 table_2
-key(carN) stopT place money=-1 fin=0 ST
-    find carN and place
-        fin=0, insert (carN, place, ST=now); 5 min after remove, wait for insert money
+INSERT INTO `table_2`(`licensePlateNumber`, `place`) VALUES ('AAA-0123','00-00-00-00-00-00')
+UPDATE `table_2` SET `fin`='0',`starT`='2023-06-02 08:50:32.924445' WHERE `table_2`.`licensePlateNumber` = 'AAA-0123' AND `table_2`.`place` = '00-00-00-00-00-00'
+SELECT `table_2`.`fin` FROM `table_2`,`table_1` WHERE `table_1`.`licensePlateNumber` = `table_2`.`licensePlateNumber` AND `table_1`.`starT` = `table_2`.`starT` AND `table_1`.`place` = `table_2`.`place`
+key(licensePlateNumber) stopT place money=-1 fin=0 ST
+    find licensePlateNumber and place
+        fin=0, insert (licensePlateNumber, place, ST=now); 5 min after remove, wait for insert money
         fin=0 
     check and insert money and fin==0
         ST=now fin=1, fin=2
     cancel
         fin=9
     fin==2
-        stopT = endT and carN = carN and money = money, fin=9
+        stopT = endT and licensePlateNumber = licensePlateNumber and money = money, fin=9
     fin==9
         remove
 table_3
 key(starT) endT money place
 #everyDay check data or everyWeek
 table_4
-key(starT) errorType
+key(checkT) starT errorType
