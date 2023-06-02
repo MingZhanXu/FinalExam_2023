@@ -1,19 +1,24 @@
 import sys
-from PySide6.QtWidgets import (QApplication, QMainWindow)
+from PySide6.QtWidgets import (QApplication, QMainWindow, QStackedWidget)
 from PySide6.QtCore import (QFile)
 from PySide6.QtGui import  (Qt, QGuiApplication)
+
+from time import sleep
 
 from lib.PPM.PPM import PPM
 from lib.keyboardScreen.keyboardScreen_ui import Ui_Form as keyboardScreen
 from lib.paymentScreen.paymentScreen_ui import Ui_Form as paymentScreen
-class MainWindow(QMainWindow):
-    def __init__(self, parent=None):
-        super(MainWindow, self).__init__(parent)
+class keyboardWindow(QMainWindow):
+    def __init__(self, parent=None, PW=None):
+        super(keyboardWindow, self).__init__(parent)
         self.ui = keyboardScreen()
         self.ui.setupUi(self)
-
-        #查詢車牌文字
+        #初始化變數
         self.txt = ""
+        if(PW == None):
+            self.PW = patmentWindow(KW=self)
+        else:
+            self.PW = PW
         #調整畫面
         self.setWindowFlag(Qt.FramelessWindowHint)
         self.screen = QGuiApplication.primaryScreen().geometry()
@@ -35,19 +40,24 @@ class MainWindow(QMainWindow):
         self.ui.btn_inquire.clicked.connect(self.inquire)
     #查詢
     def inquire(self):
-        print(self.txt)
-        print([ord(txt) for txt in self.txt])
+        # print(self.txt)
+        # print([ord(txt) for txt in self.txt])
+        if(len(self.txt) > 7):
+            self.PW.txt = self.txt
+            self.PW.ui.label_print.setText(self.PW.txt)
+            self.PW.showMaximized()
+            self.hide()
         return self.txt
     #螢幕鍵盤
     def keyboard(self):
         key = self.sender().text()
         if (ord(key) >= ord("A") and ord(key) <= ord("Z") and len(self.txt) < 3):
-            self.txt += self.sender().text()
+            self.txt += key
             if (len(self.txt) == 3):
                 self.txt += "-"
             self.ui.edit_inquire.setText(self.txt)
         elif (ord(key) >= ord("0") and ord(key) <= ord("9") and len(self.txt) < 8 and len(self.txt) > 3):
-            self.txt = self.txt + self.sender().text()
+            self.txt = self.txt + key
             self.ui.edit_inquire.setText(self.txt)
         return self.txt
     #刪除按鍵
@@ -63,9 +73,44 @@ class MainWindow(QMainWindow):
         self.txt = ""
         self.ui.edit_inquire.setText(self.txt)
         return self.txt
-    
+
+class patmentWindow(QMainWindow):
+    def __init__(self, parent=None, KW = None):
+        super(patmentWindow, self).__init__(parent)
+        self.ui = paymentScreen()
+        self.ui.setupUi(self)
+        #調整畫面
+        self.setWindowFlag(Qt.FramelessWindowHint)
+        self.screen = QGuiApplication.primaryScreen().geometry()
+        self.width = self.screen.width()
+        self.height = self.screen.height()
+        #初始化變數
+        if(KW == None):
+            self.KW = keyboardWindow(PW=self)
+        else:
+            self.KW = KW
+        self.txt = self.KW.txt
+        self.PPM = PPM(self.txt)
+        self.ui.label_print.setText(self.txt)
+        #綁定事件
+        self.ui.btn_cancel.clicked.connect(self.cancel)
+        self.ui.btn_check.clicked.connect(self.check)
+    #取消
+    def cancel(self):
+        self.KW.showMaximized()
+        self.KW.txt = ""
+        self.KW.ui.edit_inquire.setText(self.KW.txt)
+        self.hide()
+    #確認
+    def check(self):
+        self.KW.showMaximized()
+        self.KW.txt = ""
+        self.KW.ui.edit_inquire.setText(self.KW.txt)
+        self.hide()
+
+        
 if __name__ == "__main__":
     app = QApplication([])
-    window = MainWindow()
+    window = keyboardWindow()
     window.showMaximized()
     sys.exit(app.exec_())

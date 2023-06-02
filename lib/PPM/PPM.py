@@ -8,7 +8,9 @@ import time
 #時間為無條件進位(30分1秒，則算60分)
 class PPM():
     #初始化
-    def __init__(self):        
+    def __init__(self, licensePlateNumber:str):
+        #車牌號碼
+        self.licensePlateNumber = licensePlateNumber
         #需付金額
         self.money = 0
         #累積金額
@@ -87,7 +89,7 @@ class PPM():
     #計算帳單
     def testCheck(self):
         self.needMoney()
-        self.printStr = f'開始停車時間 : {self.startTime}\n結束停車時間 : {self.endTime}\n'
+        self.printStr = f'車牌號碼 : {self.licensePlateNumber}\n開始停車時間 : {self.startTime}\n結束停車時間 : {self.endTime}\n'
         if(self.nextDay == 0):
             self.printStr += f'共停了 {int(math.ceil((self.endTime - self.startTime).total_seconds()/60))} 分鐘\n'
         elif(self.nextDay == 1):
@@ -166,7 +168,7 @@ class PPM():
 
 if __name__ == '__main__':
     os.system('cls')
-    my = PPM()
+    my = PPM("DDD-1234")
     my.setStartTime('2023-05-22 00:00:00')
     my.setEndTime('2023-05-23 00:00:00')
     my.needMoney()
