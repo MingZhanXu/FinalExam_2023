@@ -130,8 +130,8 @@ class Test_CNeedMoney():
         assert my.needMoney() == RT
 
 @pytest.mark.correct
-@pytest.mark.testCheck
-class Test_CTestCheck():
+@pytest.mark.check
+class Test_CCheck():
     #測試字串是否正確
     @pytest.mark.parametrize(argnames='startD, endD, RT', argvalues=[('2023-05-22 00:00:00','2023-05-22 00:00:00', '車牌號碼 : AAA-1234\n開始停車時間 : 2023-05-22 00:00:00\n結束停車時間 : 2023-05-22 00:00:00\n共停了 0 分鐘\n\n需付 0 元\n'),
                                                                      ('2023-05-22 00:00:00','2023-05-22 00:00:01', '車牌號碼 : AAA-1234\n開始停車時間 : 2023-05-22 00:00:00\n結束停車時間 : 2023-05-22 00:00:01\n共停了 1 分鐘\n\n需付 15 元\n'),
@@ -144,9 +144,9 @@ class Test_CTestCheck():
                                                                      ('2023-05-22 23:30:00','2023-05-28 00:00:01', '車牌號碼 : AAA-1234\n開始停車時間 : 2023-05-22 23:30:00\n結束停車時間 : 2023-05-28 00:00:01\n第一天共停了 30 分鐘，最後一天共停了 1 分鐘，並且在這段期間共停了 5 天\n\n需付 1655 元\n'),
                                                                      ('2023-05-22 23:30:00','2023-05-28 10:00:01', '車牌號碼 : AAA-1234\n開始停車時間 : 2023-05-22 23:30:00\n結束停車時間 : 2023-05-28 10:00:01\n第一天共停了 30 分鐘，最後一天共停了 601 分鐘，並且在這段期間共停了 5 天\n\n需付 2055 元\n'),
                                                                      ('2023-05-22 23:30:00','2023-05-28 11:00:00', '車牌號碼 : AAA-1234\n開始停車時間 : 2023-05-22 23:30:00\n結束停車時間 : 2023-05-28 11:00:00\n第一天共停了 30 分鐘，最後一天共停了 660 分鐘，並且在這段期間共停了 5 天\n\n需付 2055 元\n')])
-    def test_C_testCheck(self, startD:str, endD:str, RT:str):
+    def test_C_check(self, startD:str, endD:str, RT:str):
         my = PPM("AAA-1234")
         my.setStartTime(startD)
         my.setEndTime(endD)
-        rt = my.testCheck()
+        rt = my.check()
         assert rt == RT
