@@ -71,7 +71,7 @@ class Test_keyboard():
             i+=1
         assert app.ui.edit_inquire.text() == txt
     #測試鍵盤inquire的畫面切換功能
-    @pytest.mark.inquire
+    @pytest.mark.keyboard_inquire
     @pytest.mark.parametrize(argnames='keyStr, KW, PW',argvalues = [["ABC123", 1, 0],
                                                                     ["1234ABC", 1, 0],
                                                                     ["ABC1234", 0, 1]])
