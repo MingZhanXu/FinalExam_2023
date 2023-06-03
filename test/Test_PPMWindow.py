@@ -32,11 +32,30 @@ class Test_keyboard():
         assert app.ui.edit_inquire.text() == txt
     #測試鍵盤del與-填充
     @pytest.mark.keyboard_del
-    @pytest.mark.parametrize(argnames='keyStr, clear, txt',argvalues = [["A10BC35ZX120","000100011000", "AC"],
+    @pytest.mark.parametrize(argnames='keyStr, Del, txt',argvalues = [["A10BC35ZX120","000100011000", "AC"],
                                                                         ["121SAASD3213A","1110010011110", "SAS-"],
                                                                         ["121SAASD3213A","0110010011110", "SAS-"],
                                                                         ["121SAASD3213A","0110010011100", "SAS-3"],
                                                                         ["121SAASD3213A","0110010011111", "SA"]])
+    def test_keyDel(self,qtbot, keyStr:str, Del:str, txt:str):
+        app = keyboardWindow()
+        qtbot.addWidget(app)
+        i = 0
+        for AZN in keyStr:
+            if (AZN >= "0" and AZN <= "9"):
+                btn = "btn_n" + AZN
+            else:
+                btn = "btn_" + AZN
+            qtbot.mouseClick(getattr(app.ui,btn), Qt.LeftButton)
+            if (Del[i] == "1"):
+                qtbot.mouseClick(app.ui.btn_del, Qt.LeftButton)
+            i+=1
+        assert app.ui.edit_inquire.text() == txt
+    #測試鍵盤cls
+    @pytest.mark.keyboard_del
+    @pytest.mark.parametrize(argnames='keyStr, clear, txt',argvalues = [["A3B5C6","001000", "C"],
+                                                                        ["AAB3C5DD","10000000", "ABC-"],
+                                                                        ["SDA1234","0000001", ""]])
     def test_keyDel(self,qtbot, keyStr:str, clear:str, txt:str):
         app = keyboardWindow()
         qtbot.addWidget(app)
@@ -48,6 +67,6 @@ class Test_keyboard():
                 btn = "btn_" + AZN
             qtbot.mouseClick(getattr(app.ui,btn), Qt.LeftButton)
             if (clear[i] == "1"):
-                qtbot.mouseClick(app.ui.btn_del, Qt.LeftButton)
+                qtbot.mouseClick(app.ui.btn_cls, Qt.LeftButton)
             i+=1
         assert app.ui.edit_inquire.text() == txt
