@@ -1,6 +1,5 @@
 import pytest
 from lib.PPM.PPM import PPM
-
 #正確為C，錯誤為M
 #CReturn 正確回傳為 0
 CReturn = 0
