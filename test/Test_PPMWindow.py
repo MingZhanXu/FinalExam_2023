@@ -33,10 +33,10 @@ class Test_keyboard():
     #測試鍵盤del與-填充
     @pytest.mark.keyboard_del
     @pytest.mark.parametrize(argnames='keyStr, Del, txt',argvalues = [["A10BC35ZX120","000100011000", "AC"],
-                                                                        ["121SAASD3213A","1110010011110", "SAS-"],
-                                                                        ["121SAASD3213A","0110010011110", "SAS-"],
-                                                                        ["121SAASD3213A","0110010011100", "SAS-3"],
-                                                                        ["121SAASD3213A","0110010011111", "SA"]])
+                                                                      ["121SAASD3213A","1110010011110", "SAS-"],
+                                                                      ["121SAASD3213A","0110010011110", "SAS-"],
+                                                                      ["121SAASD3213A","0110010011100", "SAS-3"],
+                                                                      ["121SAASD3213A","0110010011111", "SA"]])
     def test_keyDel(self,qtbot, keyStr:str, Del:str, txt:str):
         app = keyboardWindow()
         qtbot.addWidget(app)
@@ -52,11 +52,11 @@ class Test_keyboard():
             i+=1
         assert app.ui.edit_inquire.text() == txt
     #測試鍵盤cls
-    @pytest.mark.keyboard_del
+    @pytest.mark.keyboard_cls
     @pytest.mark.parametrize(argnames='keyStr, clear, txt',argvalues = [["A3B5C6","001000", "C"],
-                                                                        ["AAB3C5DD","10000000", "ABC-"],
+                                                                        ["AAB3C5DD","10000000", "ABC-5"],
                                                                         ["SDA1234","0000001", ""]])
-    def test_keyDel(self,qtbot, keyStr:str, clear:str, txt:str):
+    def test_keyCls(self,qtbot, keyStr:str, clear:str, txt:str):
         app = keyboardWindow()
         qtbot.addWidget(app)
         i = 0
