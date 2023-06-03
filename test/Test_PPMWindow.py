@@ -4,7 +4,7 @@ import pytest
 class Test_keyboard():
     #測試鍵盤按鍵A~Z
     @pytest.mark.parametrize(argnames='keyStr',argvalues = [chr(ord("A") + i)for i in range(23)])
-    def test_keyStr(self,qtbot, keyStr:str):
+    def test_key_AZN(self,qtbot, keyStr:str):
         app = keyboardWindow()
         qtbot.addWidget(app)
         btn = "btn_" + keyStr

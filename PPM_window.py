@@ -44,6 +44,7 @@ class keyboardWindow(QMainWindow):
         # print([ord(txt) for txt in self.txt])
         if(len(self.txt) > 7):
             self.PW.txt = self.txt
+            #缺少PPM()函數(連接SQL)
             self.PW.ui.label_print.setText(self.PW.txt)
             self.PW.showMaximized()
             self.hide()
