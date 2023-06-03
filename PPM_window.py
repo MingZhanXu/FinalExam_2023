@@ -53,7 +53,7 @@ class keyboardWindow(QMainWindow):
             self.PW.isShow = 1
             self.hide()
             self.isShow = 0
-            print(f"PW.isShow = {self.PW.isShow}\t\t KW.isShow = {self.isShow}")
+            #print(f"PW.isShow = {self.PW.isShow}\t\t KW.isShow = {self.isShow}")
         return self.txt
     #螢幕鍵盤
     def keyboard(self):
@@ -114,7 +114,7 @@ class patmentWindow(QMainWindow):
         self.KW.ui.edit_inquire.setText(self.KW.txt)
         self.hide()
         self.isShow = 0
-        print(f"PW.isShow = {self.isShow}\t\t KW.isShow = {self.KW.isShow}")
+        #print(f"PW.isShow = {self.isShow}\t\t KW.isShow = {self.KW.isShow}")
     #確認
     def check(self):
         self.KW.showMaximized()
@@ -123,7 +123,7 @@ class patmentWindow(QMainWindow):
         self.KW.ui.edit_inquire.setText(self.KW.txt)
         self.hide()
         self.isShow = 0
-        print(f"PW.isShow = {self.isShow}\t\t KW.isShow = {self.KW.isShow}")
+        #print(f"PW.isShow = {self.isShow}\t\t KW.isShow = {self.KW.isShow}")
 
 if __name__ == "__main__":
     app = QApplication([])
