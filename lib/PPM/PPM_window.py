@@ -5,9 +5,9 @@ from PySide6.QtGui import  (Qt, QGuiApplication)
 
 from time import sleep
 
-from lib.PPM.PPM import PPM
-from lib.keyboardScreen.keyboardScreen_ui import Ui_Form as keyboardScreen
-from lib.paymentScreen.paymentScreen_ui import Ui_Form as paymentScreen
+from PPM import PPM
+from keyboardScreen.keyboardScreen_ui import Ui_Form as keyboardScreen
+from paymentScreen.paymentScreen_ui import Ui_Form as paymentScreen
 class keyboardWindow(QMainWindow):
     def __init__(self, parent=None, PW=None):
         super(keyboardWindow, self).__init__(parent)
