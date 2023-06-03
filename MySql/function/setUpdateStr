@@ -1,0 +1,10 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `setUpdateStr`(`DB_TB` VARCHAR(100) CHARSET utf8mb4, `var` VARCHAR(50) CHARSET utf8mb4, `input` VARCHAR(128) CHARSET utf8mb4, `_where` VARCHAR(300) CHARSET utf8mb4) RETURNS varchar(1000) CHARSET utf8mb4
+    NO SQL
+BEGIN
+	SET @str = 
+    CONCAT('UPDATE ', DB_TB, 
+           ' SET ', var, ' = "', input, '" WHERE ', _where);
+    RETURN @str;
+END$$
+DELIMITER ;

@@ -1,0 +1,9 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `setInsertStr`(`DB_TB` VARCHAR(100) CHARSET utf8mb4, `_Where` VARCHAR(100) CHARSET utf8mb4, `_values` VARCHAR(500) CHARSET utf8mb4) RETURNS varchar(500) CHARSET utf8mb4
+BEGIN
+	SET @str = 
+    CONCAT('INSERT INTO ', DB_TB, 
+           '(', _Where, ') VALUES (', _values,  ')');
+    RETURN @str;
+END$$
+DELIMITER ;

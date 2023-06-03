@@ -1,0 +1,24 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `setSelectStr`(`type` INT(11), `RT` VARCHAR(50) CHARSET utf8mb4, `var` VARCHAR(50) CHARSET utf8mb4, `DB_TB` VARCHAR(100) CHARSET utf8mb4, `_Where` VARCHAR(200) CHARSET utf8mb4) RETURNS varchar(500) CHARSET utf8mb4
+BEGIN
+	IF _Where = "" THEN
+		SET _Where = " 1 ";
+	END IF;
+	IF type = 1 THEN
+    	SET @str = 
+        CONCAT('SET ', RT,' = (SELECT COUNT(*) FROM  ', DB_TB, ' WHERE ', _Where, ')');
+    ELSEIF type = 2 THEN
+    	SET @str = 
+        CONCAT('SET ', RT,' = (SELECT MIN(', var,') FROM ', DB_TB, ' WHERE ', _Where, ')');
+    ELSEIF type = 3 THEN
+    	SET @str = 
+        CONCAT('SET ', RT,' = (SELECT MAX(', var,') FROM ', DB_TB, ' WHERE ', _Where, ')');
+    ELSEIF type = 4 THEN
+    	SET @str = 
+        CONCAT('SET ', RT,' = (SELECT ', var,' FROM ', DB_TB, ' WHERE ', _Where, ')');
+    ELSE
+       SET @str = "ERROR"; 
+    END IF;
+    RETURN @str;
+END$$
+DELIMITER ;
