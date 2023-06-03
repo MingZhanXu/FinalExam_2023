@@ -70,10 +70,11 @@ class Test_keyboard():
                 qtbot.mouseClick(app.ui.btn_cls, Qt.LeftButton)
             i+=1
         assert app.ui.edit_inquire.text() == txt
+    #測試鍵盤inquire的畫面切換功能
     @pytest.mark.inquire
     @pytest.mark.parametrize(argnames='keyStr, KW, PW',argvalues = [["ABC123", 1, 0],
-                                                                        ["1234ABC", 1, 0],
-                                                                        ["ABC1234", 0, 1]])
+                                                                    ["1234ABC", 1, 0],
+                                                                    ["ABC1234", 0, 1]])
     def test_keyInquire(self,qtbot, keyStr:str, KW:int, PW:int):
         app = keyboardWindow()
         qtbot.addWidget(app)
