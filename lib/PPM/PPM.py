@@ -128,16 +128,12 @@ class PPM():
             print(f'需付 {self.money} 元\n已付 {self.nowMoney} 元')
             #self.checkPay()
             return 1
-    #取消付款
-    def cancel(self):
-        self.nowMoney = 0
-        print('執行退幣動作')
     #正式用按鈕 無條件進位
-    def checkPay(self, pay = 0):
+    def checkPay(self, cancel = 0):
         needMoneyD = self.nowMoney - self.money
         #pay = input("是否確認付款(Y/N)")
         #用if else原因，防止機台故障導致無法付款，但是在發生故障時可能會有虧損
-        if(pay == 0):
+        if(cancel == 0):
             if(needMoneyD == 0):
                 os.system('cls')
                 print('已完成付款，以下是帳單\n\n')
@@ -158,7 +154,8 @@ class PPM():
                 print(f'總共 {self.money} 元')
                 return 0
         else:
-            self.cancel()
+            self.nowMoney = 0
+            print("執行退幣動作")
             return 1
 
 if __name__ == '__main__':
