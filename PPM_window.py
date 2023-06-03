@@ -51,12 +51,12 @@ class keyboardWindow(QMainWindow):
     #螢幕鍵盤
     def keyboard(self):
         key = self.sender().text()
-        if (ord(key) >= ord("A") and ord(key) <= ord("Z") and len(self.txt) < 3):
+        if (key >= "A" and key <= "Z" and len(self.txt) < 3):
             self.txt += key
             if (len(self.txt) == 3):
                 self.txt += "-"
             self.ui.edit_inquire.setText(self.txt)
-        elif (ord(key) >= ord("0") and ord(key) <= ord("9") and len(self.txt) < 8 and len(self.txt) > 3):
+        elif (key >= "0" and key <= "9" and len(self.txt) < 8 and len(self.txt) > 3):
             self.txt = self.txt + key
             self.ui.edit_inquire.setText(self.txt)
         return self.txt
@@ -108,7 +108,6 @@ class patmentWindow(QMainWindow):
         self.KW.ui.edit_inquire.setText(self.KW.txt)
         self.hide()
 
-        
 if __name__ == "__main__":
     app = QApplication([])
     window = keyboardWindow()
