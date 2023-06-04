@@ -142,7 +142,10 @@ class patmentWindow(QMainWindow):
         self.KW.hide()
         self.KW.isShow = 0
         self.txt = self.KW.txt
-        self.db = db()
+        if (testInquire == 1):
+            self.db = db()
+        else:
+            self.db = None
         #self.PPM = PPM(self.txt)
         self.PPM = PPM("")
         self.ui.label_print.setText(self.txt)
