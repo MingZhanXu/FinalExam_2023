@@ -10,7 +10,7 @@ from lib.PPM.PPM import PPM
 from lib.keyboardScreen.keyboardScreen_ui import Ui_Form as keyboardScreen
 from lib.paymentScreen.paymentScreen_ui import Ui_Form as paymentScreen
 myPlace = "00-FF-5E-74-DB-73"
-testInquire = 0
+testInquire = 1
 #sqlPwd=  "hz5EUrxOzyjDpaHn"
 #my = connect(host="vm3pc.ddns.net", port=3306,user="ppm", password = "hz5EUrxOzyjDpaHn", database = "ppm_procedure")
 class db():
@@ -183,12 +183,16 @@ class patmentWindow(QMainWindow):
         #print(f"PW.isShow = {self.isShow}\t\t KW.isShow = {self.KW.isShow}")
     def pay1(self):
         self.PPM.input(20, 0)
+        self.ui.label_print.setText(self.PPM.printStr2)
     def pay5(self):
         self.PPM.input(22, 1)
+        self.ui.label_print.setText(self.PPM.printStr2)
     def pay10(self):
         self.PPM.input(26, 2)
+        self.ui.label_print.setText(self.PPM.printStr2)
     def pay50(self):
         self.PPM.input(28, 3)
+        self.ui.label_print.setText(self.PPM.printStr2)
 
 if __name__ == "__main__":
     print(myPlace)
