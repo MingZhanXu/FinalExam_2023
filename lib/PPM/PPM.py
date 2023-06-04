@@ -23,6 +23,8 @@ class PPM():
         self.nextDay = 0
         #顯示用文字(減少計算量)
         self.printStr = ''
+        #顯示用文字(減少計算量)
+        self.printStr2 = ''
     #測試用(自行設定日期)
     #new_time = '%Y-%m-%d %H:%M:%S'
     def setStartTime(self,new_time = '2023-01-01 00:00:00'):
@@ -114,25 +116,21 @@ class PPM():
         needMoneyD = self.nowMoney - self.money
         if(needMoneyD < 0):
             os.system('cls')
-            print(self.printStr)
-            print(f'需付 {self.money} 元\n已付 {self.nowMoney} 元，還須付 {-needMoneyD} 元')
+            self.printStr2 = self.printStr + f'\n需付 {self.money} 元\n已付 {self.nowMoney} 元，還須付 {-needMoneyD} 元'
+            print(self.printStr2)
             return 0
         if(needMoneyD > 0):
             os.system('cls')
-            print(self.printStr)
-            print(f'需付 {self.money} 元\n已付 {self.nowMoney} 元，將退還 {needMoneyD} 元')
+            self.printStr2 = self.printStr + f'\n需付 {self.money} 元\n已付 {self.nowMoney} 元，將退還 {needMoneyD} 元'
+            print(self.printStr2)
             #self.checkPay()
             return 1
         else:
             os.system('cls')
-            print(self.printStr)
-            print(f'需付 {self.money} 元\n已付 {self.nowMoney} 元')
+            self.printStr2 = self.printStr + f'\n需付 {self.money} 元\n已付 {self.nowMoney} 元'
+            print(self.printStr2)
             #self.checkPay()
             return 1
-    #取消付款
-    def cancel(self):
-        self.nowMoney = 0
-        print('執行退幣動作')
     #正式用按鈕 無條件進位
     def checkPay(self, pay = 0):
         needMoneyD = self.nowMoney - self.money
@@ -141,25 +139,24 @@ class PPM():
         if(pay == 0):
             if(needMoneyD == 0):
                 os.system('cls')
-                print('已完成付款，以下是帳單\n\n')
-                print(self.printStr)
-                print(f'總共 {self.money} 元')
+                self.printStr2 = f'已完成付款，以下是帳單\n\n{self.printStr}\n總共 {self.money} 元'
+                print(self.printStr2)
                 return 0
             elif(needMoneyD > 0):
                 os.system('cls')
-                print(f'已完成付款，並將退回 {needMoneyD} 元，以下是帳單\n\n')
-                print(self.printStr)
-                print(f'總共 {self.money} 元')
+                self.printStr2 = f'已完成付款，並將退回 {needMoneyD} 元，以下是帳單\n\n{self.printStr}\n總共 {self.money} 元'
+                print(self.printStr2)
                 return 0
             #需調整設計
             else:
                 os.system('cls')
-                print(f'機台發生故障，以下是帳單\n\n')
-                print(self.printStr)
-                print(f'總共 {self.money} 元')
+                self.printStr2 = f'機台發生故障，以下是帳單\n\n{self.printStr}\n總共 {self.money} 元'
+                print(self.printStr2)
                 return 0
         else:
-            self.cancel()
+            self.nowMoney = 0
+            self.printStr2 = '執行退幣動作'
+            print(self.printStr2)
             return 1
 
 if __name__ == '__main__':

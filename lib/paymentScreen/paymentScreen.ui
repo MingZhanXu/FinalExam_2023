@@ -119,7 +119,7 @@
      <height>80</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout">
+   <layout class="QGridLayout" name="test_layout">
     <item row="0" column="0">
      <widget class="QPushButton" name="btn_p1">
       <property name="text">

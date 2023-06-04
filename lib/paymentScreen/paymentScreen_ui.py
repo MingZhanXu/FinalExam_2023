@@ -57,28 +57,28 @@ class Ui_Form(object):
         self.gridLayoutWidget = QWidget(Form)
         self.gridLayoutWidget.setObjectName(u"gridLayoutWidget")
         self.gridLayoutWidget.setGeometry(QRect(400, 920, 323, 80))
-        self.gridLayout = QGridLayout(self.gridLayoutWidget)
-        self.gridLayout.setObjectName(u"gridLayout")
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.test_layout = QGridLayout(self.gridLayoutWidget)
+        self.test_layout.setObjectName(u"test_layout")
+        self.test_layout.setContentsMargins(0, 0, 0, 0)
         self.btn_p1 = QPushButton(self.gridLayoutWidget)
         self.btn_p1.setObjectName(u"btn_p1")
 
-        self.gridLayout.addWidget(self.btn_p1, 0, 0, 1, 1)
+        self.test_layout.addWidget(self.btn_p1, 0, 0, 1, 1)
 
         self.btn_p5 = QPushButton(self.gridLayoutWidget)
         self.btn_p5.setObjectName(u"btn_p5")
 
-        self.gridLayout.addWidget(self.btn_p5, 0, 1, 1, 1)
+        self.test_layout.addWidget(self.btn_p5, 0, 1, 1, 1)
 
         self.btn_p10 = QPushButton(self.gridLayoutWidget)
         self.btn_p10.setObjectName(u"btn_p10")
 
-        self.gridLayout.addWidget(self.btn_p10, 0, 2, 1, 1)
+        self.test_layout.addWidget(self.btn_p10, 0, 2, 1, 1)
 
         self.btn_p50 = QPushButton(self.gridLayoutWidget)
         self.btn_p50.setObjectName(u"btn_p50")
 
-        self.gridLayout.addWidget(self.btn_p50, 0, 3, 1, 1)
+        self.test_layout.addWidget(self.btn_p50, 0, 3, 1, 1)
 
 
         self.retranslateUi(Form)
