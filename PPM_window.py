@@ -45,6 +45,7 @@ class db():
 class keyboardWindow(QMainWindow):
     def __init__(self, parent=None, PW=None):
         super(keyboardWindow, self).__init__(parent)
+        my = connect(host="vm3pc.ddns.net", port=3306,user="ppm", password = "hz5EUrxOzyjDpaHn", database = "ppm_procedure")
         self.ui = keyboardScreen()
         self.ui.setupUi(self)
         #調整畫面
