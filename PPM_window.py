@@ -1,7 +1,7 @@
 import sys
 from pymysql import connect, cursors
-from PySide6.QtWidgets import (QApplication, QMainWindow, QStackedWidget)
-from PySide6.QtCore import (QFile)
+from PySide6.QtWidgets import (QApplication, QMainWindow)
+from PySide6.QtCore import (QFile, QTimer)
 from PySide6.QtGui import  (Qt, QGuiApplication)
 
 from time import sleep
@@ -97,6 +97,14 @@ class keyboardWindow(QMainWindow):
                 self.PW.ui.label_print.setText(self.PW.txt)
             else:
                 self.PW.ui.label_print.setText(self.txt)
+            self.PW.ui.btn_check.hide()
+            self.PW.ui.btn_cancel.show()
+            self.PW.ui.btn_p1.show()
+            self.PW.ui.btn_p5.show()
+            self.PW.ui.btn_p10.show()
+            self.PW.ui.btn_p50.show()
+            self.PW.time = 300
+            self.PW.startTimer()
             self.PW.showMaximized()
             self.PW.isShow = 1
             self.hide()
@@ -163,36 +171,69 @@ class patmentWindow(QMainWindow):
         self.ui.btn_p5.clicked.connect(self.pay5)
         self.ui.btn_p10.clicked.connect(self.pay10)
         self.ui.btn_p50.clicked.connect(self.pay50)
+        #計時器
+        self.time = 300
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.showTime)
+        self.startTimer()
+    #到計時
+    def showTime(self):
+        self.time -= 1
+        self.ui.label_time.setText(f'剩餘時間 : {str(self.time)} 秒')
+        if self.time == 0:
+            self.timer.stop()
+            self.KW.showMaximized()
+            self.KW.isShow = 1
+            self.KW.txt = ""
+            self.KW.ui.edit_inquire.setText(self.KW.txt)
+            self.hide()
+            self.isShow = 0
+    def startTimer(self):
+        self.timer.start(1000)
     #取消
     def cancel(self):
-        self.KW.showMaximized()
-        self.KW.isShow = 1
-        self.KW.txt = ""
-        self.KW.ui.edit_inquire.setText(self.KW.txt)
-        self.hide()
-        self.isShow = 0
+        self.PPM.checkPay(1)
+        self.ui.label_print.setText(self.PPM.printStr2 + "\n並在將十秒後返回主頁面")
+        self.time = 10
+        self.ui.btn_check.hide()
+        self.ui.btn_cancel.hide()
+        self.ui.btn_p1.hide()
+        self.ui.btn_p5.hide()
+        self.ui.btn_p10.hide()
+        self.ui.btn_p50.hide()
         #print(f"PW.isShow = {self.isShow}\t\t KW.isShow = {self.KW.isShow}")
     #確認
     def check(self):
-        self.KW.showMaximized()
-        self.KW.isShow = 1
-        self.KW.txt = ""
-        self.KW.ui.edit_inquire.setText(self.KW.txt)
-        self.hide()
-        self.isShow = 0
+        self.PPM.checkPay()
+        self.ui.label_print.setText(self.PPM.printStr2 + "\n並在將十秒後返回主頁面")
+        self.time = 10
+        self.ui.btn_check.hide()
+        self.ui.btn_cancel.hide()
+        self.ui.btn_p1.hide()
+        self.ui.btn_p5.hide()
+        self.ui.btn_p10.hide()
+        self.ui.btn_p50.hide()
         #print(f"PW.isShow = {self.isShow}\t\t KW.isShow = {self.KW.isShow}")
     def pay1(self):
         self.PPM.input(20, 0)
         self.ui.label_print.setText(self.PPM.printStr2)
+        if(self.PPM.money - self.PPM.nowMoney <= 0):
+            self.ui.btn_check.show()
     def pay5(self):
         self.PPM.input(22, 1)
         self.ui.label_print.setText(self.PPM.printStr2)
+        if(self.PPM.money - self.PPM.nowMoney <= 0):
+            self.ui.btn_check.show()
     def pay10(self):
         self.PPM.input(26, 2)
         self.ui.label_print.setText(self.PPM.printStr2)
+        if(self.PPM.money - self.PPM.nowMoney <= 0):
+            self.ui.btn_check.show()
     def pay50(self):
         self.PPM.input(28, 3)
         self.ui.label_print.setText(self.PPM.printStr2)
+        if(self.PPM.money - self.PPM.nowMoney <= 0):
+            self.ui.btn_check.show()
 
 if __name__ == "__main__":
     print(myPlace)
