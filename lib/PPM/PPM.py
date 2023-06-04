@@ -131,10 +131,6 @@ class PPM():
             print(self.printStr2)
             #self.checkPay()
             return 1
-    #取消付款
-    def cancel(self):
-        self.nowMoney = 0
-        print('執行退幣動作')
     #正式用按鈕 無條件進位
     def checkPay(self, pay = 0):
         needMoneyD = self.nowMoney - self.money
@@ -158,7 +154,9 @@ class PPM():
                 print(self.printStr2)
                 return 0
         else:
-            self.cancel()
+            self.nowMoney = 0
+            self.printStr2 = '執行退幣動作'
+            print(self.printStr2)
             return 1
 
 if __name__ == '__main__':
