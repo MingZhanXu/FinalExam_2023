@@ -10,6 +10,7 @@ from lib.PPM.PPM import PPM
 from lib.keyboardScreen.keyboardScreen_ui import Ui_Form as keyboardScreen
 from lib.paymentScreen.paymentScreen_ui import Ui_Form as paymentScreen
 myPlace = "AA:BB:CC:DD:EE"
+testInquire = 0
 class db():
     def __init__(self, hostname = "127.0.0.1", username = "root", password = "", database = "ppm_procedure"):
         self.mysql = connect(host=hostname, user=username, passwd=password, db=database)
@@ -80,12 +81,15 @@ class keyboardWindow(QMainWindow):
         if(len(self.txt) > 7):
             self.PW.PPM.licensePlateNumber = self.txt
             #轉換格式 2023-06-02 08:50:32.924445 => 2023-06-02 08:50:32
-            self.PW.PPM.setStartTime(self.PW.db.inquire_startT(self.txt, myPlace)[:19])
-            self.PW.PPM.setEndTime(self.PW.db.inquire_endT(self.txt, myPlace)[:19])
-            self.PW.txt = self.txt
-            self.PW.PPM.needMoney()
-            self.PW.txt = self.PW.PPM.check()
-            self.PW.ui.label_print.setText(self.PW.txt)
+            if(testInquire == 1):
+                self.PW.PPM.setStartTime(self.PW.db.inquire_startT(self.txt, myPlace)[:19])
+                self.PW.PPM.setEndTime(self.PW.db.inquire_endT(self.txt, myPlace)[:19])
+                self.PW.txt = self.txt
+                self.PW.PPM.needMoney()
+                self.PW.txt = self.PW.PPM.check()
+                self.PW.ui.label_print.setText(self.PW.txt)
+            else:
+                self.PW.ui.label_print.setText(self.txt)
             self.PW.showMaximized()
             self.PW.isShow = 1
             self.hide()
