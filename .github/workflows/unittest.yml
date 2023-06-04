@@ -41,9 +41,6 @@ jobs:
       - name: Install pymysql module
         run: pip install pymysql
 
-      - name: Test ping mysql server
-        run: ping vm3pc.ddns.net
-
       - name: execute CI test
         run: coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py ./test/Test_PPMWindow.py
 
