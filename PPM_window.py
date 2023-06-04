@@ -1,4 +1,5 @@
 import sys
+from pymysql import connect, cursors
 from PySide6.QtWidgets import (QApplication, QMainWindow, QStackedWidget)
 from PySide6.QtCore import (QFile)
 from PySide6.QtGui import  (Qt, QGuiApplication)
@@ -8,6 +9,26 @@ from time import sleep
 from lib.PPM.PPM import PPM
 from lib.keyboardScreen.keyboardScreen_ui import Ui_Form as keyboardScreen
 from lib.paymentScreen.paymentScreen_ui import Ui_Form as paymentScreen
+class db():
+    def __init__(self, hostname = "127.0.0.1", username = "root", password = "", database = "ppm_procedure"):
+        self.mysql = connect(host=hostname, user=username, passwd=password, db=database)
+        self.cursor = self.mysql.cursor()
+    #模擬停車 return 0(成功) or 1(失敗)
+    def test_stop(self):
+        RT = self.cursor.execute("CALL stop_car()")
+        return RT
+    #查詢停車時間 return 時間
+    def inquire(self, licensePlateNumber:str, place:str):
+        RT = self.cursor.execute(f"CALL inquire({licensePlateNumber}, {place})")
+        return RT
+    #確定繳費 return 0(成功) or 1(失敗)
+    def pay(self, licensePlateNumber:str, place:str, money:int):
+        RT = self.cursor.execute(f"CALL pay({licensePlateNumber}, {place}, {money})")
+        return RT
+    #取消繳費 return 0(成功) or 1(失敗)
+    def cancel(self, licensePlateNumber:str, place:str):
+        RT = self.cursor.execute(f"CALL cancel({licensePlateNumber}, {place})")
+        return RT
 class keyboardWindow(QMainWindow):
     def __init__(self, parent=None, PW=None):
         super(keyboardWindow, self).__init__(parent)
@@ -41,6 +62,12 @@ class keyboardWindow(QMainWindow):
         self.ui.btn_cls.clicked.connect(self.keyboard_cls)
         #將查詢鍵添加事件
         self.ui.btn_inquire.clicked.connect(self.inquire)
+        #將模擬停車添加事件
+        self.ui.btn_test.clicked.connect(self.test_stop)
+    #模擬停車
+    def test_stop(self):
+        #缺少停車
+        return 0
     #查詢
     def inquire(self):
         # print(self.txt)
@@ -101,7 +128,9 @@ class patmentWindow(QMainWindow):
         self.KW.hide()
         self.KW.isShow = 0
         self.txt = self.KW.txt
-        self.PPM = PPM(self.txt)
+        self.db = db()
+        #self.PPM = PPM(self.txt)
+        self.PPM = PPM("")
         self.ui.label_print.setText(self.txt)
         #綁定事件
         self.ui.btn_cancel.clicked.connect(self.cancel)

@@ -36,7 +36,7 @@
      <rect>
       <x>628</x>
       <y>752</y>
-      <width>660</width>
+      <width>674</width>
       <height>225</height>
      </rect>
     </property>
@@ -820,6 +820,19 @@
       </layout>
      </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="btn_test">
+    <property name="geometry">
+     <rect>
+      <x>1200</x>
+      <y>700</y>
+      <width>100</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>模擬停車</string>
+    </property>
    </widget>
   </widget>
  </widget>
