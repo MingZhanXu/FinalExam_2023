@@ -80,14 +80,8 @@ class PPM():
         else:
             self.money = PPM.checkNeedMoney((self.startTime.weekday()),int(math.ceil((self.endTime-self.startTime).total_seconds()/(60*30))))
         return self.money
-
-    #顯示帳單
-    def check(self):
-        self.endTime = DT.now()
-        print(self.testCheck())
-        return self.testCheck()
     #計算帳單
-    def testCheck(self):
+    def check(self):
         self.needMoney()
         self.printStr = f'車牌號碼 : {self.licensePlateNumber}\n開始停車時間 : {self.startTime}\n結束停車時間 : {self.endTime}\n'
         if(self.nextDay == 0):
@@ -174,7 +168,7 @@ if __name__ == '__main__':
     my.setStartTime('2023-05-22 00:00:00')
     my.setEndTime('2023-05-23 00:00:00')
     my.needMoney()
-    print(my.testCheck())
-    my.checkPay()
+    print(my.check())
     while(my.input(28,3) == 0):
         time.sleep(1)
+    my.checkPay()

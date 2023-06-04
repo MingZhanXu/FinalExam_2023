@@ -9,6 +9,7 @@ from time import sleep
 from lib.PPM.PPM import PPM
 from lib.keyboardScreen.keyboardScreen_ui import Ui_Form as keyboardScreen
 from lib.paymentScreen.paymentScreen_ui import Ui_Form as paymentScreen
+myPlace = "AA:BB:CC:DD:EE"
 class db():
     def __init__(self, hostname = "127.0.0.1", username = "root", password = "", database = "ppm_procedure"):
         self.mysql = connect(host=hostname, user=username, passwd=password, db=database)
@@ -17,9 +18,13 @@ class db():
     def test_stop(self):
         RT = self.cursor.execute("CALL stop_car()")
         return RT
-    #查詢停車時間 return 時間
-    def inquire(self, licensePlateNumber:str, place:str):
-        RT = self.cursor.execute(f"CALL inquire({licensePlateNumber}, {place})")
+    #查詢停車時間 return 開始時間
+    def inquire_startT(self, licensePlateNumber:str, place:str):
+        RT = self.cursor.execute(f"CALL inquire_startT({licensePlateNumber}, {place})")
+        return RT
+    #查詢停車時間 return 暫停時間
+    def inquire_stopT(self, licensePlateNumber:str, place:str):
+        RT = self.cursor.execute(f"CALL inquire_stopT({licensePlateNumber}, {place})")
         return RT
     #確定繳費 return 0(成功) or 1(失敗)
     def pay(self, licensePlateNumber:str, place:str, money:int):
@@ -73,8 +78,13 @@ class keyboardWindow(QMainWindow):
         # print(self.txt)
         # print([ord(txt) for txt in self.txt])
         if(len(self.txt) > 7):
+            self.PW.PPM.licensePlateNumber = self.txt
+            #轉換格式 2023-06-02 08:50:32.924445 => 2023-06-02 08:50:32
+            self.PW.PPM.setStartTime(self.PW.db.inquire_startT(self.txt, myPlace)[:19])
+            self.PW.PPM.setEndTime(self.PW.db.inquire_endT(self.txt, myPlace)[:19])
             self.PW.txt = self.txt
-            #缺少PPM()函數(連接SQL)
+            self.PW.PPM.needMoney()
+            self.PW.txt = self.PW.PPM.check()
             self.PW.ui.label_print.setText(self.PW.txt)
             self.PW.showMaximized()
             self.PW.isShow = 1
@@ -155,6 +165,7 @@ class patmentWindow(QMainWindow):
         #print(f"PW.isShow = {self.isShow}\t\t KW.isShow = {self.KW.isShow}")
 
 if __name__ == "__main__":
+    print(myPlace)
     app = QApplication([])
     window = keyboardWindow()
     sys.exit(app.exec_())
