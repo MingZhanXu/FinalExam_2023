@@ -98,7 +98,7 @@ class PPM():
     #輸入硬幣 c_mm 硬幣大小 c_m 硬幣磁力
     def input(self, c_mm, c_m):
         #if與elif的物品會存放在一個暫存箱
-        if(c_mm == 22 and c_m == 0):
+        if(c_mm == 20 and c_m == 0):
             self.nowMoney += 1
         elif(c_mm == 22 and c_m == 1):
             self.nowMoney += 5

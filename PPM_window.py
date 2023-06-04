@@ -149,6 +149,10 @@ class patmentWindow(QMainWindow):
         #綁定事件
         self.ui.btn_cancel.clicked.connect(self.cancel)
         self.ui.btn_check.clicked.connect(self.check)
+        self.ui.btn_p1.clicked.connect(self.pay1)
+        self.ui.btn_p5.clicked.connect(self.pay5)
+        self.ui.btn_p10.clicked.connect(self.pay10)
+        self.ui.btn_p50.clicked.connect(self.pay50)
     #取消
     def cancel(self):
         self.KW.showMaximized()
@@ -167,6 +171,14 @@ class patmentWindow(QMainWindow):
         self.hide()
         self.isShow = 0
         #print(f"PW.isShow = {self.isShow}\t\t KW.isShow = {self.KW.isShow}")
+    def pay1(self):
+        self.PPM.input(20, 0)
+    def pay5(self):
+        self.PPM.input(22, 1)
+    def pay10(self):
+        self.PPM.input(26, 2)
+    def pay50(self):
+        self.PPM.input(28, 3)
 
 if __name__ == "__main__":
     print(myPlace)
