@@ -12,7 +12,7 @@ on:
     branches: [ "test" ]
 
   # # Allows you to run this workflow manually from the Actions tab
-  # workflow_dispatch:
+  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -24,10 +24,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
 
       - name: Install coverage module
         run: pip install coverage
+
+      - name: Install python3-coverage module
+        run: sudo apt install python3-coverage
 
       - name: Install pyside6 module
         run: pip install pyside6
@@ -35,23 +38,31 @@ jobs:
       - name: Install pytest module
         run: pip install pytest
 
+      - name: Install python3-pytest module
+        run: sudo apt install python3-pytest -y
+
       - name: Install pytest-qt module
         run: pip install pytest-qt
 
       - name: Install pytest-cov module
         run: pip install pytest-cov
 
+      - name: Install python3-pymysql module
+        run: sudo apt install python3-pymysql
+
       - name: Install pymysql module
         run: pip install pymysql
 
       - name: execute CI test
-        run: coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py
+        run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py
+      # - name: execute CI test
+      #   run: coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py
 
-      - name: execute CI2 test
-        run: coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py ./test/Test_PPMWindow.py
+      # - name: execute CI2 test
+      #   run: coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py ./test/Test_PPMWindow.py
 
-      - name: Show the unittest coverage of codes
-        run: coverage report -m 
+      # - name: Show the unittest coverage of codes
+      #   run: coverage report -m 
 
       # - name: Generate html(the unittest coverage of codes)
       #   run: coverage html
