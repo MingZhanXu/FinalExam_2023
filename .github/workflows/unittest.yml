@@ -77,9 +77,9 @@ jobs:
       
 
       # - name: execute CI test
-      #   run: pytest-3 --cov lib.PPM --cov PPM_window --cov PySide6 ./test/Test_PPM.py ./test/Test_PPMWindow.py
+      #   run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py ./test/Test_PPMWindow.py
       - name: execute CI test
-        run: xvfb-run sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py ./test/Test_PPMWindow.py
+        run: xvfb-run pytest-3 --cov lib.PPM --cov PPM_window --cov PySide6 ./test/Test_PPM.py ./test/Test_PPMWindow.py
 
       # - name: Generate html(the unittest coverage of codes)
       #   run: coverage html
