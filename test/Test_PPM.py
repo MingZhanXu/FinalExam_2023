@@ -1,6 +1,8 @@
 import pytest
 import sys
 import os
+import datetime
+from datetime import datetime as DT
 print(os.path.abspath(os.path.dirname(os.getcwd())))
 sys.path.append(rf"{os.path.abspath(os.path.dirname(os.getcwd()))}/FinalExam_2023")
 from lib.PPM.PPM import PPM
@@ -97,7 +99,13 @@ class Test_CCheckTime():
         my.setStartTime(startD)
         my.setEndTime(endD)
         assert my.checkTime() == RT
-
+    #測試跨日與自動產生endT
+    @pytest.mark.parametrize(argnames='add', argvalues=[i for i in range(-10,10)])
+    def test_C_checkTime_noneEndT(self, add:int):
+        my = PPM("AAA-1234")
+        startT = DT.strftime(DT.now()+datetime.timedelta(days=add),'%Y-%m-%d %H:%M:%S')
+        my.setStartTime(startT)
+        assert my.checkTime() == pow(pow(add,2),0.5)
 @pytest.mark.correct
 @pytest.mark.checkNeedMoney
 #測試正確用法checkNeedMoney函數
