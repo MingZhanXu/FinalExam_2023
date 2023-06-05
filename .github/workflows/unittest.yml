@@ -61,13 +61,16 @@ jobs:
 
       # - name: execute CI test
       #   run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest-3 ./test/Test_PPM.py ./test/Test_PPMWindow.py
+      #https://github.com/Nuitka/Nuitka/issues/2138
       - name: install libxcb-xinerama0
         run: sudo apt install -y libfontconfig1-dev libfreetype6-dev libx11-dev libx11-xcb-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxkbcommon-dev libxkbcommon-x11-dev libatspi2.0-dev '^libxcb.*-dev'
       
       - name: sudo apt install xvfb -y
         run: sudo apt install xvfb -y
+
       - name: export DISPLAY=:0
         run: export DISPLAY=:0
+        
       - name: export QT_QPA_PLATFORM=offscreen
         run: export QT_QPA_PLATFORM=offscreen
       
