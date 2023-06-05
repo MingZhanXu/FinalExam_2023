@@ -1,3 +1,7 @@
+import sys
+import os
+print(os.path.abspath(os.path.dirname(os.getcwd())))
+sys.path.append(rf"{os.path.abspath(os.path.dirname(os.getcwd()))}/FinalExam_2023")
 from PPM_window import keyboardWindow
 from PySide6.QtGui import  Qt
 import pytest
@@ -71,11 +75,12 @@ class Test_keyboard():
             i+=1
         assert app.ui.edit_inquire.text() == txt
     #測試鍵盤inquire的畫面切換功能
+    @pytest.mark.keyboard_inquire
     @pytest.mark.keyboard_inquire_isShow
     @pytest.mark.parametrize(argnames='keyStr, KW, PW',argvalues = [["ABC123", 1, 0],
                                                                     ["1234ABC", 1, 0],
                                                                     ["ABC1234", 0, 1]])
-    def test_keyInquire(self,qtbot, keyStr:str, KW:int, PW:int):
+    def test_keyInquire_isShow(self,qtbot, keyStr:str, KW:int, PW:int):
         app = keyboardWindow()
         qtbot.addWidget(app)
         for AZN in keyStr:
@@ -86,3 +91,27 @@ class Test_keyboard():
             qtbot.mouseClick(getattr(app.ui,btn), Qt.LeftButton)
         qtbot.mouseClick(app.ui.btn_inquire, Qt.LeftButton)
         assert (app.isShow == KW and app.PW.isShow == PW)
+    #測試鍵盤inquire查詢的結果
+    @pytest.mark.keyboard_inquire
+    @pytest.mark.keyboard_inquire_PW_label_print
+    @pytest.mark.parametrize(argnames='keyStr, error',argvalues = [["ABC1234", 0],
+                                                                   ["ABC1234", 0],
+                                                                   ["ABC1234", 0]])
+    #error代表資料錯誤(車牌格式)
+    def test_keyInquire_PW_label_print(self,qtbot, keyStr:str, error:int):
+        app = keyboardWindow()
+        qtbot.addWidget(app)
+        for AZN in keyStr:
+            if (AZN >= "0" and AZN <= "9"):
+                btn = "btn_n" + AZN
+            else:
+                btn = "btn_" + AZN
+            qtbot.mouseClick(getattr(app.ui,btn), Qt.LeftButton)
+        qtbot.mouseClick(app.ui.btn_inquire, Qt.LeftButton)
+        printTxt = app.PW.ui.label_print.text()
+        if(error == 1):
+            assert (printTxt == "")
+        elif(error == 0 and app.PW.db.connect == False):
+            assert (printTxt == "查無此資料，十秒後返回")
+        else:
+            assert ( printTxt == app.PW.PPM.check())

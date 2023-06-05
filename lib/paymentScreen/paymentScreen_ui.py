@@ -15,8 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QLabel, QPushButton, QSizePolicy,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QLabel, QPushButton,
+    QSizePolicy, QWidget)
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -54,6 +54,32 @@ class Ui_Form(object):
         self.label_time.setObjectName(u"label_time")
         self.label_time.setGeometry(QRect(1570, 80, 250, 50))
         self.label_time.setFont(font1)
+        self.gridLayoutWidget = QWidget(Form)
+        self.gridLayoutWidget.setObjectName(u"gridLayoutWidget")
+        self.gridLayoutWidget.setGeometry(QRect(400, 920, 323, 80))
+        self.test_layout = QGridLayout(self.gridLayoutWidget)
+        self.test_layout.setObjectName(u"test_layout")
+        self.test_layout.setContentsMargins(0, 0, 0, 0)
+        self.btn_p1 = QPushButton(self.gridLayoutWidget)
+        self.btn_p1.setObjectName(u"btn_p1")
+
+        self.test_layout.addWidget(self.btn_p1, 0, 0, 1, 1)
+
+        self.btn_p5 = QPushButton(self.gridLayoutWidget)
+        self.btn_p5.setObjectName(u"btn_p5")
+
+        self.test_layout.addWidget(self.btn_p5, 0, 1, 1, 1)
+
+        self.btn_p10 = QPushButton(self.gridLayoutWidget)
+        self.btn_p10.setObjectName(u"btn_p10")
+
+        self.test_layout.addWidget(self.btn_p10, 0, 2, 1, 1)
+
+        self.btn_p50 = QPushButton(self.gridLayoutWidget)
+        self.btn_p50.setObjectName(u"btn_p50")
+
+        self.test_layout.addWidget(self.btn_p50, 0, 3, 1, 1)
+
 
         self.retranslateUi(Form)
 
@@ -66,5 +92,9 @@ class Ui_Form(object):
         self.btn_cancel.setText(QCoreApplication.translate("Form", u"\u53d6\u6d88", None))
         self.label_print.setText(QCoreApplication.translate("Form", u"T", None))
         self.label_time.setText(QCoreApplication.translate("Form", u"\u5269\u9918\u6642\u9593 : 300 \u79d2", None))
+        self.btn_p1.setText(QCoreApplication.translate("Form", u"\u4e00\u5143", None))
+        self.btn_p5.setText(QCoreApplication.translate("Form", u"\u4e94\u5143", None))
+        self.btn_p10.setText(QCoreApplication.translate("Form", u"\u5341\u5143", None))
+        self.btn_p50.setText(QCoreApplication.translate("Form", u"\u4e94\u5341\u5143", None))
     # retranslateUi
 
