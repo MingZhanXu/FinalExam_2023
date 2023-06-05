@@ -69,7 +69,13 @@ jobs:
       #   run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest-3 ./test/Test_PPM.py ./test/Test_PPMWindow.py
       - name: Install qt5-default
         run: sudo apt install qt5-default -y
+        
+      - name: Uninstall opencv
+        run: pip uninstall opencv-python
 
+      - name: Install opencv
+        run: pip install opencv-python-headless
+        
       - name: Test
         run: python3 PPM_window.py
         
