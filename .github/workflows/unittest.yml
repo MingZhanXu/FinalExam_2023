@@ -25,30 +25,36 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+      
+      - name: Install python3 moudle
+        run: sudo apt install python3
+
+      - name: Install pip3  moudle
+        run: sudo apt install python3-pip
 
       - name: Install coverage module
-        run: pip install coverage
+        run: pip3 install coverage
 
       - name: Install python3-coverage module
         run: sudo apt install python3-coverage -y
 
       - name: Install pyside6 module
-        run: pip install pyside6
+        run: pip3 install pyside6
 
       - name: Install pytest module
-        run: pip install pytest
+        run: pip3 install pytest
 
       - name: Install python3-pytest module
         run: sudo apt install python3-pytest -y
 
       - name: Install pytest-qt module
-        run: pip install pytest-qt
+        run: pip3 install pytest-qt
 
       - name: Install python3-pytestqt module
         run: sudo apt install python3-pytestqt -y
 
       - name: Install pytest-cov module
-        run: pip install pytest-cov
+        run: pip3 install pytest-cov
 
       - name: Install python3-pytest-cov module
         run: sudo apt install python3-pytest-cov -y
@@ -57,7 +63,7 @@ jobs:
         run: sudo apt install python3-pymysql
 
       - name: Install pymysql module
-        run: pip install pymysql
+        run: pip3 install pymysql
 
       # - name: execute CI test
       #   run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest-3 ./test/Test_PPM.py ./test/Test_PPMWindow.py
