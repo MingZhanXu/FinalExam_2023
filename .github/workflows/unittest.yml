@@ -54,7 +54,7 @@ jobs:
         run: pip install pymysql
 
       - name: execute CI test
-        run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.pyy
+        run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py
 
       - name: Show the unittest coverage of codes
         run: sudo python3-coverage report -m 
