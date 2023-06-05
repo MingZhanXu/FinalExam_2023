@@ -38,14 +38,17 @@ jobs:
       - name: Install pytest-qt module
         run: pip install pytest-qt
 
+      - name: Install pytest-cov module
+        run: pip install pytest-cov
+
       - name: Install pymysql module
         run: pip install pymysql
 
       - name: execute CI test
-        run: coverage run --source='lib.PPM.PPM,PPM_window' -m pytest .\test\Test_PPM.py
+        run: coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py
 
       - name: execute CI2 test
-        run: coverage run --source='lib.PPM.PPM,PPM_window' -m pytest .\test\Test_PPM.py .\test\Test_PPMWindow.py
+        run: coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py ./test/Test_PPMWindow.py
 
       - name: Show the unittest coverage of codes
         run: coverage report -m 
