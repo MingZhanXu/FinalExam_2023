@@ -32,7 +32,7 @@ class Ui_Form(object):
         self.frame.setFrameShadow(QFrame.Raised)
         self.keyboradWidget = QWidget(self.frame)
         self.keyboradWidget.setObjectName(u"keyboradWidget")
-        self.keyboradWidget.setGeometry(QRect(628, 752, 660, 225))
+        self.keyboradWidget.setGeometry(QRect(628, 752, 674, 225))
         self.keyborad = QHBoxLayout(self.keyboradWidget)
         self.keyborad.setObjectName(u"keyborad")
         self.keyborad.setContentsMargins(0, 0, 0, 0)
@@ -334,6 +334,9 @@ class Ui_Form(object):
 
         self.keyborad.addLayout(self.keyborad_num)
 
+        self.btn_test = QPushButton(self.frame)
+        self.btn_test.setObjectName(u"btn_test")
+        self.btn_test.setGeometry(QRect(1200, 700, 100, 50))
 
         self.retranslateUi(Form)
 
@@ -381,5 +384,6 @@ class Ui_Form(object):
         self.btn_n4.setText(QCoreApplication.translate("Form", u"4", None))
         self.btn_n9.setText(QCoreApplication.translate("Form", u"9", None))
         self.btn_n7.setText(QCoreApplication.translate("Form", u"7", None))
+        self.btn_test.setText(QCoreApplication.translate("Form", u"\u6a21\u64ec\u505c\u8eca", None))
     # retranslateUi
 

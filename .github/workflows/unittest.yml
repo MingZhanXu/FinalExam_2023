@@ -7,9 +7,9 @@ on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   push
   # push:
-  #   branches: [ "master" ]
+  #   branches: [ "test" ]
   # pull_request:
-  #   branches: [ "master" ]
+  #   branches: [ "test" ]
 
   # # Allows you to run this workflow manually from the Actions tab
   # workflow_dispatch:
@@ -19,30 +19,67 @@ jobs:
   # This workflow contains a single job called "UnitTest"
   UnitTest:
     # The type of runner that the job will run on
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
+      
+      - name: Install python3 moudle
+        run: sudo apt install python3
+
+      - name: Install pip3  moudle
+        run: sudo apt install python3-pip
 
       - name: Install coverage module
-        run: pip install coverage
+        run: pip3 install coverage
+
+      - name: Install python3-coverage module
+        run: sudo apt install python3-coverage -y
 
       - name: Install pyside6 module
-        run: pip install pyside6
+        run: pip3 install pyside6
 
       - name: Install pytest module
-        run: pip install pytest
+        run: pip3 install pytest
+
+      - name: Install python3-pytest module
+        run: sudo apt install python3-pytest -y
 
       - name: Install pytest-qt module
-        run: pip install pytest-qt
+        run: pip3 install pytest-qt
 
+      - name: Install python3-pytestqt module
+        run: sudo apt install python3-pytestqt -y
+
+      - name: Install pytest-cov module
+        run: pip3 install pytest-cov
+
+      - name: Install python3-pytest-cov module
+        run: sudo apt install python3-pytest-cov -y
+
+      - name: Install python3-pymysql module
+        run: sudo apt install python3-pymysql
+
+      - name: Install pymysql module
+        run: pip3 install pymysql
+      #https://github.com/Nuitka/Nuitka/issues/2138
+      - name: install libxcb-xinerama0
+        run: sudo apt install -y libfontconfig1-dev libfreetype6-dev libx11-dev libx11-xcb-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxkbcommon-dev libxkbcommon-x11-dev libatspi2.0-dev '^libxcb.*-dev'
+      
+      - name: sudo apt install xvfb -y
+        run: sudo apt install xvfb -y
+      - name: export DISPLAY=:0
+        run: export DISPLAY=:0
+      - name: export QT_QPA_PLATFORM=offscreen
+        run: export QT_QPA_PLATFORM=offscreen
+      
+
+      # - name: execute CI test
+      #   run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py ./test/Test_PPMWindow.py
       - name: execute CI test
-        run: coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py ./test/Test_PPMWindow.py -v
-
-      - name: Show the unittest coverage of codes
-        run: coverage report -m 
+        run: xvfb-run pytest-3 --cov lib.PPM.PPM --cov PPM_window ./test/Test_PPM.py ./test/Test_PPMWindow.py
 
       # - name: Generate html(the unittest coverage of codes)
       #   run: coverage html
