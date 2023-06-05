@@ -45,16 +45,13 @@ jobs:
         run: pip install pymysql
 
       - name: execute CI test
-        run: pytest ./test/Test_PPM.py ./test/Test_PPMWindow.py
+        run: coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py
 
-      # - name: execute CI test
-      #   run: coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py
+      - name: execute CI2 test
+        run: coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py ./test/Test_PPMWindow.py
 
-      # - name: execute CI2 test
-      #   run: coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py ./test/Test_PPMWindow.py
-
-      # - name: Show the unittest coverage of codes
-      #   run: coverage report -m 
+      - name: Show the unittest coverage of codes
+        run: coverage report -m 
 
       # - name: Generate html(the unittest coverage of codes)
       #   run: coverage html
