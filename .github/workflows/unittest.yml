@@ -69,17 +69,12 @@ jobs:
         run: sudo apt install -y libfontconfig1-dev libfreetype6-dev libx11-dev libx11-xcb-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxkbcommon-dev libxkbcommon-x11-dev libatspi2.0-dev '^libxcb.*-dev'
       
       - name: sudo apt install xvfb -y
-        run: sudo apt install xvfb -y
-      - name: export DISPLAY=:0
-        run: export DISPLAY=:0
-      - name: export QT_QPA_PLATFORM=offscreen
-        run: export QT_QPA_PLATFORM=offscreen
-      
+        run: sudo apt install xvfb -y      
 
       # - name: execute CI test
       #   run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py ./test/Test_PPMWindow.py
       - name: execute CI test
-        run: xvfb-run pytest-3 --cov lib.PPM.PPM --cov PPM_window ./test/Test_PPM.py ./test/Test_PPMWindow.py
+        run: xvfb-run pytest-3 --cov lib.PPM.PPM --cov PPM_window ./test/Test_PPM.py ./test/Test_PPMWindow.py --cov-report term-missing
 
       # - name: Generate html(the unittest coverage of codes)
       #   run: coverage html
