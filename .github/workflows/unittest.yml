@@ -68,7 +68,9 @@ jobs:
       # - name: execute CI test
       #   run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest-3 ./test/Test_PPM.py ./test/Test_PPMWindow.py
       - name: install libxcb-xinerama0
-        run: sudo apt install libxcb-xinerama0
+        run: sudo apt install libxcb-xinerama0 -y
+      - name: install xcv
+        run: sudo apt install xcb -y
       - name: sudo apt install xvfb -y
         run: sudo apt install xvfb -y
       - name: export DISPLAY=:0
