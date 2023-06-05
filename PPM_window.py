@@ -17,7 +17,7 @@ myPlace = "00-FF-5E-74-DB-73"
 class db():
     def __init__(self, hostname = "vm3pc.ddns.net", username = "ppm", password = "hz5EUrxOzyjDpaHn", database = "ppm_procedure"):
         try:
-            self.mysql = connect(host=hostname, user=username, passwd=password, db=database, connect_timeout=1)
+            self.mysql = connect(host=hostname, user=username, passwd=password, db=database, connect_timeout=0.1)
             self.connect = True
         except:
             self.connect = False
