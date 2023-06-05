@@ -69,8 +69,6 @@ jobs:
       #   run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest-3 ./test/Test_PPM.py ./test/Test_PPMWindow.py
       - name: install libxcb-xinerama0
         run: sudo apt install libxcb-xinerama0
-      - name: sudo apt install offscreen -y
-        run: sudo apt install offscreen -y
       - name: sudo apt install xvfb -y
         run: sudo apt install xvfb -y
       - name: Uninstall opencv
