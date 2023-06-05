@@ -12,42 +12,62 @@ from lib.paymentScreen.paymentScreen_ui import Ui_Form as paymentScreen
 #mac位置 (之後要改為用動態)
 myPlace = "00-FF-5E-74-DB-73"
 #1 啟用 0 關閉
-testInquire = 1
 #sqlPwd=  "hz5EUrxOzyjDpaHn"
 #my = connect(host="vm3pc.ddns.net", port=3306,user="ppm", password = "hz5EUrxOzyjDpaHn", database = "ppm_procedure")
 class db():
     def __init__(self, hostname = "vm3pc.ddns.net", username = "ppm", password = "hz5EUrxOzyjDpaHn", database = "ppm_procedure"):
-        self.mysql = connect(host=hostname, user=username, passwd=password, db=database)
-        self.cursor = self.mysql.cursor()
+        try:
+            self.mysql = connect(host=hostname, user=username, passwd=password, db=database, connect_timeout=1)
+            self.connect = True
+        except:
+            self.connect = False
+        if(self.connect == True):
+            self.cursor = self.mysql.cursor()
     #模擬停車 return 0(成功) or 1(失敗)
     def test_stop(self):
-        self.cursor.execute("CALL stop_car()")
-        RT = self.cursor.fetchall()[0][0]
+        if(self.connect == True):
+            self.cursor.execute("CALL stop_car()")
+            RT = self.cursor.fetchall()[0][0]
+        else:
+            RT = 1
         return RT
     #查詢停車時間 return 開始時間
     def inquire_startT(self, licensePlateNumber:str, place:str):
-        self.cursor.execute(f"CALL inquire_startT('{licensePlateNumber}', '{place}')")
-        RT = self.cursor.fetchall()[0][0]
+        if(self.connect == True):
+            self.cursor.execute(f"CALL inquire_startT('{licensePlateNumber}', '{place}')")
+            RT = self.cursor.fetchall()[0][0]
+        else:
+            RT = "2023-05-22 00:00:00"
+            RT = "error"
         return RT
     #查詢停車時間 return 暫停時間
     def inquire_stopT(self, licensePlateNumber:str, place:str):
-        self.cursor.execute(f"CALL inquire_stopT('{licensePlateNumber}', '{place}')")
-        RT = self.cursor.fetchall()[0][0]
+        if(self.connect == True):
+            self.cursor.execute(f"CALL inquire_stopT('{licensePlateNumber}', '{place}')")
+            RT = self.cursor.fetchall()[0][0]
+        else:
+            RT = "2023-05-23 00:00:00"
+            RT = "error"
         return RT
     #確定繳費 return 0(成功) or 1(失敗)
     def pay(self, licensePlateNumber:str, place:str, money:int):
-        self.cursor.execute(f"CALL pay('{licensePlateNumber}', '{place}', '{money}')")
-        RT = self.cursor.fetchall()[0][0]
+        if(self.connect == True):
+            self.cursor.execute(f"CALL pay('{licensePlateNumber}', '{place}', '{money}')")
+            RT = self.cursor.fetchall()[0][0]
+        else:
+            RT = 1
         return RT
     #取消繳費 return 0(成功) or 1(失敗)
     def cancel(self, licensePlateNumber:str, place:str):
-        self.cursor.execute(f"CALL cancel('{licensePlateNumber}', '{place}')")
-        RT = self.cursor.fetchall()[0][0]
+        if(self.connect == True):
+            self.cursor.execute(f"CALL cancel('{licensePlateNumber}', '{place}')")
+            RT = self.cursor.fetchall()[0][0]
+        else:
+            RT = 1
         return RT
 class keyboardWindow(QMainWindow):
     def __init__(self, parent=None, PW=None):
         super(keyboardWindow, self).__init__(parent)
-        my = connect(host="vm3pc.ddns.net", port=3306,user="ppm", password = "hz5EUrxOzyjDpaHn", database = "ppm_procedure")
         self.ui = keyboardScreen()
         self.ui.setupUi(self)
         #調整畫面
@@ -91,27 +111,36 @@ class keyboardWindow(QMainWindow):
         if(len(self.txt) > 7):
             self.PW.PPM.licensePlateNumber = self.txt
             #轉換格式 2023-06-02 08:50:32.924445 => 2023-06-02 08:50:32
-            if(testInquire == 1):
+            starT = self.PW.db.inquire_startT(self.txt, myPlace)
+            stopT = self.PW.db.inquire_stopT(self.txt, myPlace)
+            if(len(starT) > 18 or len(stopT) > 18):
+                self.PW.time = 300 * 1000
+                #計算金額
                 self.PW.PPM.setStartTime(self.PW.db.inquire_startT(self.txt, myPlace)[:19])
                 self.PW.PPM.setEndTime(self.PW.db.inquire_stopT(self.txt, myPlace)[:19])
                 self.PW.txt = self.txt
                 self.PW.PPM.needMoney()
                 self.PW.txt = self.PW.PPM.check()
                 self.PW.ui.label_print.setText(self.PW.txt)
+                self.PW.ui.btn_check.hide()
+                self.PW.ui.btn_cancel.show()
+                self.PW.payShow()
+                self.PW.startTimer()
+                self.PW.showMaximized()
+                self.PW.isShow = 1
+                self.hide()
+                self.isShow = 0
             else:
-                self.PW.ui.label_print.setText(self.txt)
-            self.PW.ui.btn_check.hide()
-            self.PW.ui.btn_cancel.show()
-            self.PW.ui.btn_p1.show()
-            self.PW.ui.btn_p5.show()
-            self.PW.ui.btn_p10.show()
-            self.PW.ui.btn_p50.show()
-            self.PW.time = 300
-            self.PW.startTimer()
-            self.PW.showMaximized()
-            self.PW.isShow = 1
-            self.hide()
-            self.isShow = 0
+                self.PW.time = 10 * 1000
+                self.PW.ui.btn_check.hide()
+                self.PW.ui.btn_cancel.hide()
+                self.PW.payHide()
+                self.PW.ui.label_print.setText("查無此資料，十秒後返回")
+                self.PW.startTimer()
+                self.PW.showMaximized()
+                self.PW.isShow = 1
+                self.hide()
+                self.isShow = 0
             #print(f"PW.isShow = {self.PW.isShow}\t\t KW.isShow = {self.isShow}")
         return self.txt
     #螢幕鍵盤
@@ -160,10 +189,7 @@ class patmentWindow(QMainWindow):
         self.KW.hide()
         self.KW.isShow = 0
         self.txt = self.KW.txt
-        if (testInquire == 1):
-            self.db = db()
-        else:
-            self.db = None
+        self.db = db()
         #self.PPM = PPM(self.txt)
         self.PPM = PPM("")
         self.ui.label_print.setText(self.txt)
@@ -175,14 +201,14 @@ class patmentWindow(QMainWindow):
         self.ui.btn_p10.clicked.connect(self.pay10)
         self.ui.btn_p50.clicked.connect(self.pay50)
         #計時器
-        self.time = 300
+        self.time = 300 * 1000
         self.timer = QTimer()
         self.timer.timeout.connect(self.showTime)
         self.startTimer()
     #到計時
     def showTime(self):
         self.time -= 1
-        self.ui.label_time.setText(f'剩餘時間 : {str(self.time)} 秒')
+        self.ui.label_time.setText(f'剩餘時間 : {str(int(self.time / 1000))} 秒')
         if self.time == 0:
             self.timer.stop()
             self.KW.showMaximized()
@@ -192,30 +218,24 @@ class patmentWindow(QMainWindow):
             self.hide()
             self.isShow = 0
     def startTimer(self):
-        self.timer.start(1000)
+        self.timer.start(1)
     #取消
     def cancel(self):
+        self.time = 10 * 1000
         self.PPM.checkPay(1)
         self.ui.label_print.setText(self.PPM.printStr2 + "\n並在將十秒後返回主頁面")
-        self.time = 10
         self.ui.btn_check.hide()
         self.ui.btn_cancel.hide()
-        self.ui.btn_p1.hide()
-        self.ui.btn_p5.hide()
-        self.ui.btn_p10.hide()
-        self.ui.btn_p50.hide()
+        self.payHide()
         #print(f"PW.isShow = {self.isShow}\t\t KW.isShow = {self.KW.isShow}")
     #確認
     def check(self):
+        self.time = 10 * 1000
         self.PPM.checkPay()
         self.ui.label_print.setText(self.PPM.printStr2 + "\n並在將十秒後返回主頁面")
-        self.time = 10
         self.ui.btn_check.hide()
         self.ui.btn_cancel.hide()
-        self.ui.btn_p1.hide()
-        self.ui.btn_p5.hide()
-        self.ui.btn_p10.hide()
-        self.ui.btn_p50.hide()
+        self.payHide()
         #print(f"PW.isShow = {self.isShow}\t\t KW.isShow = {self.KW.isShow}")
     def pay1(self):
         self.PPM.input(20, 0)
@@ -237,7 +257,16 @@ class patmentWindow(QMainWindow):
         self.ui.label_print.setText(self.PPM.printStr2)
         if(self.PPM.money - self.PPM.nowMoney <= 0):
             self.ui.btn_check.show()
-
+    def payHide(self):
+        self.ui.btn_p1.hide()
+        self.ui.btn_p5.hide()
+        self.ui.btn_p10.hide()
+        self.ui.btn_p50.hide()
+    def payShow(self):
+        self.ui.btn_p1.show()
+        self.ui.btn_p5.show()
+        self.ui.btn_p10.show()
+        self.ui.btn_p50.show()
 if __name__ == "__main__":
     print(myPlace)
     app = QApplication([])
