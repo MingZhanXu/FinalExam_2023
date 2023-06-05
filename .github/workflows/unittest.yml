@@ -28,7 +28,7 @@ jobs:
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
-        
+
       - name: Install coverage module
         run: pip install coverage
 
@@ -60,7 +60,7 @@ jobs:
         run: pip install pymysql
 
       - name: execute CI test
-        run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py ./test/Test_PPMWindow.py
+        run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest-3 ./test/Test_PPM.py ./test/Test_PPMWindow.py
 
       - name: Show the unittest coverage of codes
         run: sudo python3-coverage report -m 
