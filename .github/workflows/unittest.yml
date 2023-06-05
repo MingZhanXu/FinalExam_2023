@@ -32,6 +32,12 @@ jobs:
       - name: Install pip3  moudle
         run: sudo apt install python3-pip
 
+      - name: Install coverage module
+        run: pip3 install coverage
+
+      - name: Install python3-coverage module
+        run: sudo apt install python3-coverage -y
+
       - name: Install pyside6 module
         run: pip3 install pyside6
 
@@ -67,10 +73,8 @@ jobs:
       
       - name: sudo apt install xvfb -y
         run: sudo apt install xvfb -y
-
       - name: export DISPLAY=:0
         run: export DISPLAY=:0
-        
       - name: export QT_QPA_PLATFORM=offscreen
         run: export QT_QPA_PLATFORM=offscreen
       
