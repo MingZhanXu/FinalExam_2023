@@ -71,6 +71,8 @@ jobs:
         run: sudo apt install libxcb-xinerama0
       - name: sudo apt install offscreen -y
         run: sudo apt install offscreen -y
+      - name: sudo apt install xvfb -y
+        run: sudo apt install xvfb -y
       - name: Uninstall opencv
         run: pip uninstall opencv-python
       - name: Install opencv
@@ -82,7 +84,7 @@ jobs:
       - name: python3 PPM_window.py
         run: python3 PPM_window.py
       - name: execute CI test
-        run: sudo pytest-3 --cov lib.PPM --cov PPM_window --cov PySide6 ./test/Test_PPM.py ./test/Test_PPMWindow.py
+        run: xvfb-run pytest-3 --cov lib.PPM --cov PPM_window --cov PySide6 ./test/Test_PPM.py ./test/Test_PPMWindow.py
 
       # - name: Generate html(the unittest coverage of codes)
       #   run: coverage html
