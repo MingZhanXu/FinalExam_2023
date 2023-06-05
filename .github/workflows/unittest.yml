@@ -69,6 +69,7 @@ jobs:
       #   run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest-3 ./test/Test_PPM.py ./test/Test_PPMWindow.py
       - name: install libxcb-xinerama0
         run: sudo apt install -y libfontconfig1-dev libfreetype6-dev libx11-dev libx11-xcb-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxkbcommon-dev libxkbcommon-x11-dev libatspi2.0-dev '^libxcb.*-dev'
+      
       - name: sudo apt install xvfb -y
         run: sudo apt install xvfb -y
       - name: export DISPLAY=:0
@@ -77,7 +78,7 @@ jobs:
         run: export QT_QPA_PLATFORM=offscreen
       
       - name: execute CI test
-        run: xvfb-run pytest-3 --cov lib.PPM --cov PPM_window --cov PySide6 ./test/Test_PPM.py ./test/Test_PPMWindow.py
+        run:  pytest-3 --cov lib.PPM --cov PPM_window --cov PySide6 ./test/Test_PPM.py ./test/Test_PPMWindow.py
 
       # - name: Generate html(the unittest coverage of codes)
       #   run: coverage html
