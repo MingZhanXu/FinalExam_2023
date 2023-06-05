@@ -27,9 +27,9 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: test
-        run: apt update
+        run: sudo apt update
       - name: test
-        run: apt install ffmpeg libsm6 libxext6  -y
+        run: sudo apt install ffmpeg libsm6 libxext6  -y
 
       - name: Install coverage module
         run: pip install coverage
