@@ -67,9 +67,11 @@ jobs:
 
       # - name: execute CI test
       #   run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest-3 ./test/Test_PPM.py ./test/Test_PPMWindow.py
+      - name: export DISPLAY=:0
+        run: export DISPLAY=:0
       - name: export QT_QPA_PLATFORM=offscreen
         run: export QT_QPA_PLATFORM=offscreen
-        
+      
       - name: execute CI test
         run: sudo pytest-3 --cov lib.PPM --cov PPM_window --cov PySide6 ./test/Test_PPM.py ./test/Test_PPMWindow.py
 
