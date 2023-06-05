@@ -239,6 +239,11 @@ class patmentWindow(QMainWindow):
             self.ui.btn_check.show()
 
 if __name__ == "__main__":
+    testInquire = 1
+    try:
+        db()
+    except:
+        testInquire = 0
     print(myPlace)
     app = QApplication([])
     window = keyboardWindow()
