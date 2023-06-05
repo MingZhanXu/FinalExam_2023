@@ -29,6 +29,9 @@ jobs:
       - name: Install coverage module
         run: pip install coverage
 
+      - name: Install python3-coverage module
+        run: pip install python3-coverage
+
       - name: Install pyside6 module
         run: pip install pyside6
 
@@ -51,7 +54,7 @@ jobs:
         run: pip install pymysql
 
       - name: execute CI test
-        run: sudo coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py
+        run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py
       # - name: execute CI test
       #   run: coverage run --source='lib.PPM.PPM,PPM_window' -m pytest ./test/Test_PPM.py
 
