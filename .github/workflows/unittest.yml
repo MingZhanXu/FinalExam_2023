@@ -30,7 +30,7 @@ jobs:
         run: pip install coverage
 
       - name: Install python3-coverage module
-        run: sudo apt install python3-coverage
+        run: sudo apt install python3-coverage -y
 
       - name: Install pyside6 module
         run: pip install pyside6
@@ -43,6 +43,9 @@ jobs:
 
       - name: Install pytest-qt module
         run: pip install pytest-qt
+
+      - name: Install python3-pytestqt module
+        run: sudo apt install python3-pytestqt -y
 
       - name: Install pytest-cov module
         run: pip install pytest-cov
