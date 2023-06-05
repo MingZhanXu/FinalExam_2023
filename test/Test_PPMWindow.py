@@ -89,11 +89,12 @@ class Test_keyboard():
         assert (app.isShow == KW and app.PW.isShow == PW)
     #測試鍵盤inquire查詢的結果
     @pytest.mark.keyboard_inquire
-    @pytest.mark.keyboard_inquire_sqlReturnTxt
-    @pytest.mark.parametrize(argnames='keyStr, error',argvalues = [["ABC1234", 1],
-                                                                   ["ABC1234", 1],
+    @pytest.mark.keyboard_inquire_PW_label_print
+    @pytest.mark.parametrize(argnames='keyStr, error',argvalues = [["ABC1234", 0],
+                                                                   ["ABC1234", 0],
                                                                    ["ABC1234", 0]])
-    def test_keyInquire_sqlReturnTxt(self,qtbot, keyStr:str, error:int):
+    #error代表資料錯誤(車牌格式)
+    def test_keyInquire_PW_label_print(self,qtbot, keyStr:str, error:int):
         app = keyboardWindow()
         qtbot.addWidget(app)
         for AZN in keyStr:
@@ -105,7 +106,7 @@ class Test_keyboard():
         qtbot.mouseClick(app.ui.btn_inquire, Qt.LeftButton)
         printTxt = app.PW.ui.label_print.text()
         if(error == 1):
-            assert (printTxt == "查無此資料，十秒後返回")
+            assert (printTxt == "")
         elif(error == 0 and app.PW.db.connect == False):
             assert (printTxt == "查無此資料，十秒後返回")
         else:
