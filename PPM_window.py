@@ -1,7 +1,7 @@
 import sys
-from pymysql import connect, cursors
+from pymysql import connect
 from PySide6.QtWidgets import (QApplication, QMainWindow)
-from PySide6.QtCore import (QFile, QTimer)
+from PySide6.QtCore import (QTimer)
 from PySide6.QtGui import  (Qt, QGuiApplication)
 
 from time import sleep
@@ -9,7 +9,9 @@ from time import sleep
 from lib.PPM.PPM import PPM
 from lib.keyboardScreen.keyboardScreen_ui import Ui_Form as keyboardScreen
 from lib.paymentScreen.paymentScreen_ui import Ui_Form as paymentScreen
+#mac位置 (之後要改為用動態)
 myPlace = "00-FF-5E-74-DB-73"
+#1 啟用 0 關閉
 testInquire = 1
 #sqlPwd=  "hz5EUrxOzyjDpaHn"
 #my = connect(host="vm3pc.ddns.net", port=3306,user="ppm", password = "hz5EUrxOzyjDpaHn", database = "ppm_procedure")
