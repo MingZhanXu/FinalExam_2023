@@ -69,6 +69,8 @@ jobs:
       #   run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest-3 ./test/Test_PPM.py ./test/Test_PPMWindow.py
       - name: install libxcb-xinerama0
         run: sudo apt install libxcb-xinerama0
+      - name: sudo apt install offscreen -y
+        run: sudo apt install offscreen -y
       - name: Uninstall opencv
         run: pip uninstall opencv-python
       - name: Install opencv
@@ -77,8 +79,6 @@ jobs:
         run: export DISPLAY=:0
       - name: export QT_QPA_PLATFORM=offscreen
         run: export QT_QPA_PLATFORM=offscreen
-      - name: export QT_DEBUG_PLUGINS=1
-        run: export QT_DEBUG_PLUGINS=1
       - name: python3 PPM_window.py
         run: python3 PPM_window.py
       - name: execute CI test
