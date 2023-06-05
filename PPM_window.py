@@ -27,7 +27,11 @@ class db():
     def test_stop(self):
         if(self.connect == True):
             self.cursor.execute("CALL stop_car()")
-            RT = self.cursor.fetchall()[0][0]
+            RT = self.cursor.fetchall()
+            if(len(RT) == 0):
+                RT = "error"
+            else:
+                RT = RT[0][0]
         else:
             RT = 1
         return RT
@@ -35,7 +39,11 @@ class db():
     def inquire_startT(self, licensePlateNumber:str, place:str):
         if(self.connect == True):
             self.cursor.execute(f"CALL inquire_startT('{licensePlateNumber}', '{place}')")
-            RT = self.cursor.fetchall()[0][0]
+            RT = self.cursor.fetchall()
+            if(len(RT) == 0):
+                RT = "error"
+            else:
+                RT = RT[0][0]
         else:
             RT = "2023-05-22 00:00:00"
             RT = "error"
@@ -44,7 +52,11 @@ class db():
     def inquire_stopT(self, licensePlateNumber:str, place:str):
         if(self.connect == True):
             self.cursor.execute(f"CALL inquire_stopT('{licensePlateNumber}', '{place}')")
-            RT = self.cursor.fetchall()[0][0]
+            RT = self.cursor.fetchall()
+            if(len(RT) == 0):
+                RT = "error"
+            else:
+                RT = RT[0][0]
         else:
             RT = "2023-05-23 00:00:00"
             RT = "error"
@@ -53,7 +65,11 @@ class db():
     def pay(self, licensePlateNumber:str, place:str, money:int):
         if(self.connect == True):
             self.cursor.execute(f"CALL pay('{licensePlateNumber}', '{place}', '{money}')")
-            RT = self.cursor.fetchall()[0][0]
+            RT = self.cursor.fetchall()
+            if(len(RT) == 0):
+                RT = "error"
+            else:
+                RT = RT[0][0]
         else:
             RT = 1
         return RT
@@ -61,7 +77,11 @@ class db():
     def cancel(self, licensePlateNumber:str, place:str):
         if(self.connect == True):
             self.cursor.execute(f"CALL cancel('{licensePlateNumber}', '{place}')")
-            RT = self.cursor.fetchall()[0][0]
+            RT = self.cursor.fetchall()
+            if(len(RT) == 0):
+                RT = "error"
+            else:
+                RT = RT[0][0]
         else:
             RT = 1
         return RT
