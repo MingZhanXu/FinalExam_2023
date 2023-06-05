@@ -67,8 +67,8 @@ jobs:
 
       # - name: execute CI test
       #   run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest-3 ./test/Test_PPM.py ./test/Test_PPMWindow.py
-      - name: Install xcb
-        run: sudo apt install xcb -y
+      - name: Install qt5-default
+        run: sudo apt install qt5-default -y
 
       - name: Test
         run: python3 PPM_window.py
