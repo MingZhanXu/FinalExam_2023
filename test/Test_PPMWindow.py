@@ -1,7 +1,7 @@
 import sys
 import os
 print(os.path.abspath(os.path.dirname(os.getcwd())))
-sys.path.append(rf"{os.path.abspath(os.path.dirname(os.getcwd()))}\\FinalExam_2023")
+sys.path.append(rf"{os.path.abspath(os.path.dirname(os.getcwd()))}/FinalExam_2023")
 from PPM_window import keyboardWindow
 from PySide6.QtGui import  Qt
 import pytest
