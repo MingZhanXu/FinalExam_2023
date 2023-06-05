@@ -67,7 +67,9 @@ jobs:
 
       # - name: execute CI test
       #   run: sudo python3-coverage run --source='lib.PPM.PPM,PPM_window' -m pytest-3 ./test/Test_PPM.py ./test/Test_PPMWindow.py
-
+      - 
+        name: Test
+        run: sudo python3 PPM_window.py
         
       - name: execute CI test
         run: sudo pytest-3 --cov lib.PPM --cov PPM_window --cov PySide6 ./test/Test_PPM.py ./test/Test_PPMWindow.py
