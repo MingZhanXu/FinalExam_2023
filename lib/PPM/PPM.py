@@ -111,7 +111,8 @@ class PPM():
         #直接歸還
         else:
             os.system('cls')
-            print(f'{self.printStr}\n\n這不是可識別的硬幣')
+            self.printStr2 = f'{self.printStr}\n\n這不是可識別的硬幣'
+            print(self.printStr2)
             return 1
         needMoneyD = self.nowMoney - self.money
         if(needMoneyD < 0):
