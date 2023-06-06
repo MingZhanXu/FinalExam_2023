@@ -29,7 +29,7 @@ class keyboardWindow(QMainWindow):
         self.ui.keyboradWidget.setGeometry(self.width/2 - 330, self.height - 275, self.ui.keyboradWidget.width(), self.ui.keyboradWidget.height())
         #初始化變數
         self.txt = ""
-        self.starT = ""
+        self.startT = ""
         self.stopT = ""
         if(PW == None):
             self.PW = patmentWindow(KW=self)
@@ -63,12 +63,12 @@ class keyboardWindow(QMainWindow):
         if(len(self.txt) > 7):
             self.PW.PPM.licensePlateNumber = self.txt
             #轉換格式 2023-06-02 08:50:32.924445 => 2023-06-02 08:50:32
-            self.starT = self.PW.db.inquire_startT(self.txt, myPlace)
+            self.startT = self.PW.db.inquire_startT(self.txt, myPlace)
             self.stopT = self.PW.db.inquire_stopT(self.txt, myPlace)
-            if(len(self.starT) > 18 and len(self.stopT) > 18):
+            if(len(self.startT) > 18 and len(self.stopT) > 18):
                 self.PW.time = 300 * 1000
                 #計算金額
-                self.PW.PPM.setStartTime(self.starT[:19])
+                self.PW.PPM.setStartTime(self.startT[:19])
                 self.PW.PPM.setEndTime(self.stopT[:19])
                 self.PW.txt = self.txt
                 self.PW.PPM.needMoney()
