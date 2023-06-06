@@ -121,7 +121,7 @@ class Test_keyboard():
 
 @pytest.mark.btn_check
 class Test_btn_check():
-    @pytest.mark.btn_check_date
+    @pytest.mark.btn_check_data
     @pytest.mark.parametrize(argnames='keyStr, delay',
                              argvalues=[("AAA1234", 1),
                                         ('AAA1234', 10)])
@@ -136,5 +136,25 @@ class Test_btn_check():
             qtbot.mouseClick(getattr(app.ui,btn), Qt.LeftButton)
         qtbot.mouseClick(app.ui.btn_inquire, Qt.LeftButton)
         qtbot.mouseClick(app.PW.ui.btn_check, Qt.LeftButton)
+        app.PW.time -= delay * 1000
+        assert (app.PW.time < (15000 - (delay * 1000)) and app.PW.time >= (9500 - (delay * 1000)))
+
+@pytest.mark.btn_cancel
+class Test_btn_check():
+    @pytest.mark.btn_cancel_data
+    @pytest.mark.parametrize(argnames='keyStr, delay',
+                             argvalues=[("AAA1234", 1),
+                                        ('AAA1234', 10)])
+    def test_btn_cancel_data(self, qtbot, keyStr:str, delay:int):
+        app = keyboardWindow()
+        qtbot.addWidget(app)
+        for AZN in keyStr:
+            if (AZN >= "0" and AZN <= "9"):
+                btn = "btn_n" + AZN
+            else:
+                btn = "btn_" + AZN
+            qtbot.mouseClick(getattr(app.ui,btn), Qt.LeftButton)
+        qtbot.mouseClick(app.ui.btn_inquire, Qt.LeftButton)
+        qtbot.mouseClick(app.PW.ui.btn_cancel, Qt.LeftButton)
         app.PW.time -= delay * 1000
         assert (app.PW.time < (15000 - (delay * 1000)) and app.PW.time >= (9500 - (delay * 1000)))
