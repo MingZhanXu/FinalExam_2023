@@ -129,6 +129,10 @@ class patmentWindow(QMainWindow):
         self.screen = QGuiApplication.primaryScreen().geometry()
         self.width = self.screen.width()
         self.height = self.screen.height()
+        self.ui.label_print.setGeometry(self.width * (350 / 1920), self.height * (130 / 1080), self.width * (1220 / 1920), self.height * (820 / 1080))
+        self.ui.label_time.setGeometry(self.width * (1570 / 1920), self.height * (80 / 1080), 250, 50)
+        self.ui.btn_cancel.setGeometry(self.width * (250 / 1920), self.height * (950 / 1080), self.width * (100 / 1920), self.height * (50 / 1080))
+        self.ui.btn_check.setGeometry(self.width * (1670 / 1920), self.height * (950 / 1080), self.width * (100 / 1920), self.height * (50 / 1080))
         #初始化變數
         if(KW == None):
             self.KW = keyboardWindow(PW=self)
