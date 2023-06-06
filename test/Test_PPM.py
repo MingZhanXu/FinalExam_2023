@@ -1,6 +1,8 @@
 import pytest
 import sys
 import os
+import datetime
+from datetime import datetime as DT
 print(os.path.abspath(os.path.dirname(os.getcwd())))
 sys.path.append(rf"{os.path.abspath(os.path.dirname(os.getcwd()))}/FinalExam_2023")
 from lib.PPM.PPM import PPM
@@ -97,7 +99,13 @@ class Test_CCheckTime():
         my.setStartTime(startD)
         my.setEndTime(endD)
         assert my.checkTime() == RT
-
+    #測試跨日與自動產生endT
+    @pytest.mark.parametrize(argnames='add', argvalues=[i for i in range(-10,10)])
+    def test_C_checkTime_noneEndT(self, add:int):
+        my = PPM("AAA-1234")
+        startT = DT.strftime(DT.now()+datetime.timedelta(days=add),'%Y-%m-%d %H:%M:%S')
+        my.setStartTime(startT)
+        assert my.checkTime() == pow(pow(add,2),0.5)
 @pytest.mark.correct
 @pytest.mark.checkNeedMoney
 #測試正確用法checkNeedMoney函數
@@ -154,3 +162,79 @@ class Test_CCheck():
         my.setEndTime(endD)
         rt = my.check()
         assert rt == RT
+
+@pytest.mark.correct
+@pytest.mark.input
+class Test_CInput():
+    #測試硬幣判斷是否正確
+    @pytest.mark.parametrize(argnames='c_mm, c_m, RT', argvalues=[(20, 0, 1),
+                                                                  (22, 1, 5),
+                                                                  (26, 2, 10),
+                                                                  (28, 3, 50)])
+    def test_C_input_date(self, c_mm:int, c_m:int, RT:int):
+        my = PPM("DDD-1234")
+        my.setStartTime('2023-05-22 00:00:00')
+        my.setEndTime('2023-05-23 00:00:00')
+        my.needMoney()
+        my.input(c_mm, c_m)
+        assert my.nowMoney == RT
+    #測試回傳是否正確
+    @pytest.mark.parametrize(argnames='T1, T50, RT', argvalues=[(0, 6, 1),
+                                                                (1, 6, 1),
+                                                                (1, 0, 0),
+                                                                (49, 5, 0)])
+    def test_C_input_return(self, T1:int, T50:int, RT:int):
+        my = PPM("DDD-1234")
+        my.money = 300
+        rt = 1
+        for i in range(T1):
+            rt = my.input(20,0)
+        for i in range(T50):
+            rt = my.input(28, 3)
+        assert rt == RT
+
+@pytest.mark.mistake
+@pytest.mark.input
+class Test_MInput():
+    #測試硬幣判斷是否正確
+    @pytest.mark.parametrize(argnames='c_mm, c_m', argvalues=[(19, 0),
+                                                            (20, -1),
+                                                            (10000, 1),
+                                                            (-1000, 2),
+                                                            (0, 0)])
+    def test_M_input_returnAndDate(self, c_mm:int, c_m:int):
+        my = PPM("DDD-1234")
+        my.setStartTime('2023-05-22 00:00:00')
+        my.setEndTime('2023-05-23 00:00:00')
+        my.needMoney()
+        assert (my.input(c_mm, c_m) == MReturn and my.nowMoney == 0)
+
+@pytest.mark.correct
+@pytest.mark.checkPay
+class Test_CCheckPay():
+    #測試確定支付回傳是否正確
+    @pytest.mark.parametrize(argnames='needMoney, nowMoney, cancel', 
+                             argvalues=[(0, 0, 0),
+                                        (-99, -99, 0),
+                                        (-99, 0, 0),
+                                        (0, 1, 0)])
+    def test_C_checkPay(self, needMoney:int, nowMoney:int, cancel:int):
+        my = PPM("DDD-1234")
+        my.money = needMoney
+        my.nowMoney = nowMoney
+        assert my.checkPay(cancel) == CReturn
+
+@pytest.mark.mistake
+@pytest.mark.checkPay
+class Test_MCheckPay():
+    #測試確定支付回傳是否正確
+    @pytest.mark.parametrize(argnames='needMoney, nowMoney, cancel', 
+                             argvalues=[(1, 0, 0),
+                                        (1, 0, 1),
+                                        (1, 0, 1),
+                                        (0, 1, 1)])
+    def test_M_checkPay(self, needMoney:int, nowMoney:int, cancel:int):
+        my = PPM("DDD-1234")
+        my.money = needMoney
+        my.nowMoney = nowMoney
+        assert my.checkPay(cancel) == MReturn
