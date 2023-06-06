@@ -9,82 +9,12 @@ from time import sleep
 from lib.PPM.PPM import PPM
 from lib.keyboardScreen.keyboardScreen_ui import Ui_Form as keyboardScreen
 from lib.paymentScreen.paymentScreen_ui import Ui_Form as paymentScreen
+from lib.PPM_DB.PPM_DB import PPM_DB as db
 #mac位置 (之後要改為用動態)
 myPlace = "00-FF-5E-74-DB-73"
 #1 啟用 0 關閉
 #sqlPwd=  "hz5EUrxOzyjDpaHn"
 #my = connect(host="vm3pc.ddns.net", port=3306,user="ppm", password = "hz5EUrxOzyjDpaHn", database = "ppm_procedure")
-class db():
-    def __init__(self, hostname = "vm3pc.ddns.net", username = "ppm", password = "hz5EUrxOzyjDpaHn", database = "ppm_procedure"):
-        try:
-            self.mysql = connect(host=hostname, user=username, passwd=password, db=database, connect_timeout=0.1)
-            self.connect = True
-        except:
-            self.connect = False
-        if(self.connect == True):
-            self.cursor = self.mysql.cursor()
-    #模擬停車 return 0(成功) or 1(失敗)
-    def test_stop(self):
-        if(self.connect == True):
-            self.cursor.execute("CALL stop_car()")
-            RT = self.cursor.fetchall()
-            if(len(RT) == 0):
-                RT = "error"
-            else:
-                RT = RT[0][0]
-        else:
-            RT = 1
-        return RT
-    #查詢停車時間 return 開始時間
-    def inquire_startT(self, licensePlateNumber:str, place:str):
-        if(self.connect == True):
-            self.cursor.execute(f"CALL inquire_startT('{licensePlateNumber}', '{place}')")
-            RT = self.cursor.fetchall()
-            if(len(RT) == 0):
-                RT = "error"
-            else:
-                RT = RT[0][0]
-        else:
-            RT = "2023-05-22 00:00:00"
-            RT = "error"
-        return RT
-    #查詢停車時間 return 暫停時間
-    def inquire_stopT(self, licensePlateNumber:str, place:str):
-        if(self.connect == True):
-            self.cursor.execute(f"CALL inquire_stopT('{licensePlateNumber}', '{place}')")
-            RT = self.cursor.fetchall()
-            if(len(RT) == 0):
-                RT = "error"
-            else:
-                RT = RT[0][0]
-        else:
-            RT = "2023-05-23 00:00:00"
-            RT = "error"
-        return RT
-    #確定繳費 return 0(成功) or 1(失敗)
-    def pay(self, licensePlateNumber:str, place:str, money:int):
-        if(self.connect == True):
-            self.cursor.execute(f"CALL pay('{licensePlateNumber}', '{place}', '{money}')")
-            RT = self.cursor.fetchall()
-            if(len(RT) == 0):
-                RT = "error"
-            else:
-                RT = RT[0][0]
-        else:
-            RT = 1
-        return RT
-    #取消繳費 return 0(成功) or 1(失敗)
-    def cancel(self, licensePlateNumber:str, place:str):
-        if(self.connect == True):
-            self.cursor.execute(f"CALL cancel('{licensePlateNumber}', '{place}')")
-            RT = self.cursor.fetchall()
-            if(len(RT) == 0):
-                RT = "error"
-            else:
-                RT = RT[0][0]
-        else:
-            RT = 1
-        return RT
 class keyboardWindow(QMainWindow):
     def __init__(self, parent=None, PW=None):
         super(keyboardWindow, self).__init__(parent)
@@ -199,6 +129,10 @@ class patmentWindow(QMainWindow):
         self.screen = QGuiApplication.primaryScreen().geometry()
         self.width = self.screen.width()
         self.height = self.screen.height()
+        self.ui.label_print.setGeometry(self.width * (350 / 1920), self.height * (130 / 1080), self.width * (1220 / 1920), self.height * (820 / 1080))
+        self.ui.label_time.setGeometry(self.width * (1570 / 1920), self.height * (80 / 1080), 250, 50)
+        self.ui.btn_cancel.setGeometry(self.width * (250 / 1920), self.height * (950 / 1080), self.width * (100 / 1920), self.height * (50 / 1080))
+        self.ui.btn_check.setGeometry(self.width * (1670 / 1920), self.height * (950 / 1080), self.width * (100 / 1920), self.height * (50 / 1080))
         #初始化變數
         if(KW == None):
             self.KW = keyboardWindow(PW=self)
