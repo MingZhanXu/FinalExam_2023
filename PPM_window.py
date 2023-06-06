@@ -37,6 +37,8 @@ class keyboardWindow(QMainWindow):
         self.isShow = 1
         self.PW.hide()
         self.PW.isShow = 0
+        self.startT = ""
+        self.stopT = ""
         #將鍵盤添加事件
         btn = "btn_n"
         for i in range(10):
@@ -145,8 +147,6 @@ class patmentWindow(QMainWindow):
         self.KW.isShow = 0
         self.txt = self.KW.txt
         self.db = db()
-        self.startT = ""
-        self.stopT = ""
         #self.PPM = PPM(self.txt)
         self.PPM = PPM("")
         self.ui.label_print.setText(self.txt)
