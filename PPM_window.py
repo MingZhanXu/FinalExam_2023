@@ -29,8 +29,6 @@ class keyboardWindow(QMainWindow):
         self.ui.keyboradWidget.setGeometry(self.width/2 - 330, self.height - 275, self.ui.keyboradWidget.width(), self.ui.keyboradWidget.height())
         #初始化變數
         self.txt = ""
-        self.startT = ""
-        self.stopT = ""
         if(PW == None):
             self.PW = patmentWindow(KW=self)
         else:
@@ -147,6 +145,8 @@ class patmentWindow(QMainWindow):
         self.KW.isShow = 0
         self.txt = self.KW.txt
         self.db = db()
+        self.startT = ""
+        self.stopT = ""
         #self.PPM = PPM(self.txt)
         self.PPM = PPM("")
         self.ui.label_print.setText(self.txt)
