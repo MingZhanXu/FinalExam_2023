@@ -63,7 +63,7 @@ class keyboardWindow(QMainWindow):
             #轉換格式 2023-06-02 08:50:32.924445 => 2023-06-02 08:50:32
             starT = self.PW.db.inquire_startT(self.txt, myPlace)
             stopT = self.PW.db.inquire_stopT(self.txt, myPlace)
-            if(len(starT) > 18 or len(stopT) > 18):
+            if(len(starT) > 18 and len(stopT) > 18):
                 self.PW.time = 300 * 1000
                 #計算金額
                 self.PW.PPM.setStartTime(self.PW.db.inquire_startT(self.txt, myPlace)[:19])
