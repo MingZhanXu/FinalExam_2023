@@ -133,6 +133,7 @@ class patmentWindow(QMainWindow):
         self.ui.label_time.setGeometry(self.width * (1570 / 1920), self.height * (80 / 1080), 250, 50)
         self.ui.btn_cancel.setGeometry(self.width * (250 / 1920), self.height * (950 / 1080), self.width * (100 / 1920), self.height * (50 / 1080))
         self.ui.btn_check.setGeometry(self.width * (1670 / 1920), self.height * (950 / 1080), self.width * (100 / 1920), self.height * (50 / 1080))
+        self.ui.gridLayoutWidget.setGeometry(self.width * (960 / 1920), self.height * (950 / 1080), self.width * (500 / 1920), self.height * (50 / 1080))
         #初始化變數
         if(KW == None):
             self.KW = keyboardWindow(PW=self)
@@ -196,31 +197,29 @@ class patmentWindow(QMainWindow):
         self.ui.label_print.setText(self.PPM.printStr2)
         if(self.PPM.money - self.PPM.nowMoney <= 0):
             self.ui.btn_check.show()
+            self.ui.gridLayoutWidget.hide()
     def pay5(self):
         self.PPM.input(22, 1)
         self.ui.label_print.setText(self.PPM.printStr2)
         if(self.PPM.money - self.PPM.nowMoney <= 0):
             self.ui.btn_check.show()
+            self.ui.gridLayoutWidget.hide()
     def pay10(self):
         self.PPM.input(26, 2)
         self.ui.label_print.setText(self.PPM.printStr2)
         if(self.PPM.money - self.PPM.nowMoney <= 0):
             self.ui.btn_check.show()
+            self.ui.gridLayoutWidget.hide()
     def pay50(self):
         self.PPM.input(28, 3)
         self.ui.label_print.setText(self.PPM.printStr2)
         if(self.PPM.money - self.PPM.nowMoney <= 0):
             self.ui.btn_check.show()
+            self.ui.gridLayoutWidget.hide()
     def payHide(self):
-        self.ui.btn_p1.hide()
-        self.ui.btn_p5.hide()
-        self.ui.btn_p10.hide()
-        self.ui.btn_p50.hide()
+        self.ui.gridLayoutWidget.hide()
     def payShow(self):
-        self.ui.btn_p1.show()
-        self.ui.btn_p5.show()
-        self.ui.btn_p10.show()
-        self.ui.btn_p50.show()
+        self.ui.gridLayoutWidget.show()
 if __name__ == "__main__":
     testInquire = 1
     try:
