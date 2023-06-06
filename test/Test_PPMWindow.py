@@ -111,7 +111,9 @@ class Test_keyboard():
         printTxt = app.PW.ui.label_print.text()
         if(error == 1):
             assert (printTxt == "")
-        elif(error == 0 and app.PW.db.connect == False):
+        elif(app.PW.db.connect == False):
+            assert (printTxt == "查無此資料，十秒後返回")
+        elif(app.PW.startT == "" or app.PW.stopT == ""):
             assert (printTxt == "查無此資料，十秒後返回")
         else:
-            assert ( printTxt == app.PW.PPM.check())
+            assert (printTxt == app.PW.PPM.check())
