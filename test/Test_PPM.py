@@ -202,9 +202,39 @@ class Test_MInput():
                                                             (10000, 1),
                                                             (-1000, 2),
                                                             (0, 0)])
-    def test_M_input_date(self, c_mm:int, c_m:int):
+    def test_M_input_returnAndDate(self, c_mm:int, c_m:int):
         my = PPM("DDD-1234")
         my.setStartTime('2023-05-22 00:00:00')
         my.setEndTime('2023-05-23 00:00:00')
         my.needMoney()
         assert (my.input(c_mm, c_m) == MReturn and my.nowMoney == 0)
+
+@pytest.mark.correct
+@pytest.mark.checkPay
+class Test_CCheckPay():
+    #測試確定支付回傳是否正確
+    @pytest.mark.parametrize(argnames='needMoney, nowMoney, cancel', 
+                             argvalues=[(0, 0, 0),
+                                        (-99, -99, 0),
+                                        (-99, 0, 0),
+                                        (0, 1, 0)])
+    def test_C_checkPay(self, needMoney:int, nowMoney:int, cancel:int):
+        my = PPM("DDD-1234")
+        my.money = needMoney
+        my.nowMoney = nowMoney
+        assert my.checkPay(cancel) == CReturn
+
+@pytest.mark.mistake
+@pytest.mark.checkPay
+class Test_MCheckPay():
+    #測試確定支付回傳是否正確
+    @pytest.mark.parametrize(argnames='needMoney, nowMoney, cancel', 
+                             argvalues=[(1, 0, 0),
+                                        (1, 0, 1),
+                                        (1, 0, 1),
+                                        (0, 1, 1)])
+    def test_M_checkPay(self, needMoney:int, nowMoney:int, cancel:int):
+        my = PPM("DDD-1234")
+        my.money = needMoney
+        my.nowMoney = nowMoney
+        assert my.checkPay(cancel) == MReturn
