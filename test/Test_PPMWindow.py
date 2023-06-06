@@ -1,10 +1,11 @@
 import sys
 import os
+import pytest
 print(os.path.abspath(os.path.dirname(os.getcwd())))
 sys.path.append(rf"{os.path.abspath(os.path.dirname(os.getcwd()))}/FinalExam_2023")
 from PPM_window import keyboardWindow
 from PySide6.QtGui import  Qt
-import pytest
+from time import sleep
 #測試鍵盤
 @pytest.mark.keyboard
 class Test_keyboard():
@@ -95,8 +96,8 @@ class Test_keyboard():
     @pytest.mark.keyboard_inquire
     @pytest.mark.keyboard_inquire_PW_label_print
     @pytest.mark.parametrize(argnames='keyStr, error',argvalues = [["ABC1234", 0],
-                                                                   ["ABC1234", 0],
-                                                                   ["ABC1234", 0]])
+                                                                   ["AAA0123", 0],
+                                                                   ["ABC123", 1]])
     #error代表資料錯誤(車牌格式)
     def test_keyInquire_PW_label_print(self,qtbot, keyStr:str, error:int):
         app = keyboardWindow()
@@ -111,7 +112,49 @@ class Test_keyboard():
         printTxt = app.PW.ui.label_print.text()
         if(error == 1):
             assert (printTxt == "")
-        elif(error == 0 and app.PW.db.connect == False):
+        elif(app.PW.db.connect == False):
+            assert (printTxt == "查無此資料，十秒後返回")
+        elif(app.startT == "error" or app.stopT == "error"):
             assert (printTxt == "查無此資料，十秒後返回")
         else:
-            assert ( printTxt == app.PW.PPM.check())
+            assert (printTxt == app.PW.PPM.check())
+
+@pytest.mark.btn_check
+class Test_btn_check():
+    @pytest.mark.btn_check_data
+    @pytest.mark.parametrize(argnames='keyStr, delay',
+                             argvalues=[("AAA1234", 1),
+                                        ('AAA1234', 10)])
+    def test_btn_check_data(self, qtbot, keyStr:str, delay:int):
+        app = keyboardWindow()
+        qtbot.addWidget(app)
+        for AZN in keyStr:
+            if (AZN >= "0" and AZN <= "9"):
+                btn = "btn_n" + AZN
+            else:
+                btn = "btn_" + AZN
+            qtbot.mouseClick(getattr(app.ui,btn), Qt.LeftButton)
+        qtbot.mouseClick(app.ui.btn_inquire, Qt.LeftButton)
+        qtbot.mouseClick(app.PW.ui.btn_check, Qt.LeftButton)
+        app.PW.time -= delay * 1000
+        assert (app.PW.time < (15000 - (delay * 1000)) and app.PW.time >= (9500 - (delay * 1000)))
+
+@pytest.mark.btn_cancel
+class Test_btn_check():
+    @pytest.mark.btn_cancel_data
+    @pytest.mark.parametrize(argnames='keyStr, delay',
+                             argvalues=[("AAA1234", 1),
+                                        ('AAA1234', 10)])
+    def test_btn_cancel_data(self, qtbot, keyStr:str, delay:int):
+        app = keyboardWindow()
+        qtbot.addWidget(app)
+        for AZN in keyStr:
+            if (AZN >= "0" and AZN <= "9"):
+                btn = "btn_n" + AZN
+            else:
+                btn = "btn_" + AZN
+            qtbot.mouseClick(getattr(app.ui,btn), Qt.LeftButton)
+        qtbot.mouseClick(app.ui.btn_inquire, Qt.LeftButton)
+        qtbot.mouseClick(app.PW.ui.btn_cancel, Qt.LeftButton)
+        app.PW.time -= delay * 1000
+        assert (app.PW.time < (15000 - (delay * 1000)) and app.PW.time >= (9500 - (delay * 1000)))
