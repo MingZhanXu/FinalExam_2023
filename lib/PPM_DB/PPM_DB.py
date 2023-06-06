@@ -1,10 +1,9 @@
-
 from pymysql import connect
 hostname = "127.0.0.1"
 username = "root"
 password = ""
 database = "ppm_procedure"
-class db():
+class PPM_DB():
     def __init__(self, hostname = hostname, username = username, password = password, database = database):
         try:
             self.mysql = connect(host=hostname, user=username, passwd=password, db=database, connect_timeout=0.1)
