@@ -1,3 +1,5 @@
+import time
+from datetime import datetime as DT
 from pymysql import connect
 hostname = "127.0.0.1"
 username = "root"
@@ -18,9 +20,9 @@ class PPM_DB():
             self.cursor.execute("CALL stop_car()")
             RT = self.cursor.fetchall()
             if(len(RT) == 0):
-                RT = "error"
+                RT = 1
             else:
-                RT = RT[0][0]
+                RT = 0
         else:
             RT = 1
         return RT
@@ -32,9 +34,8 @@ class PPM_DB():
             if(len(RT) == 0):
                 RT = "error"
             else:
-                RT = RT[0][0]
+                RT = DT.strftime(RT[0][0], '%Y-%m-%d %H:%M:%S')
         else:
-            RT = "2023-05-22 00:00:00"
             RT = "error"
         return RT
     #查詢停車時間 return 暫停時間
@@ -45,8 +46,7 @@ class PPM_DB():
             if(len(RT) == 0):
                 RT = "error"
             else:
-                RT = RT[0][0]
+                RT = DT.strftime(RT[0][0], '%Y-%m-%d %H:%M:%S')
         else:
-            RT = "2023-05-23 00:00:00"
             RT = "error"
         return RT
