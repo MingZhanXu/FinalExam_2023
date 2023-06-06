@@ -162,3 +162,33 @@ class Test_CCheck():
         my.setEndTime(endD)
         rt = my.check()
         assert rt == RT
+
+@pytest.mark.correct
+@pytest.mark.input
+class Test_CInput():
+    #測試硬幣判斷是否正確
+    @pytest.mark.parametrize(argnames='c_mm, c_m, RT', argvalues=[(20, 0, 1),
+                                                                  (22, 1, 5),
+                                                                  (26, 2, 10),
+                                                                  (28, 3, 50)])
+    def test_C_input_date(self, c_mm:int, c_m:int, RT:int):
+        my = PPM("DDD-1234")
+        my.setStartTime('2023-05-22 00:00:00')
+        my.setEndTime('2023-05-23 00:00:00')
+        my.needMoney()
+        my.input(c_mm, c_m)
+        assert my.nowMoney == RT
+    #測試回傳是否正確
+    @pytest.mark.parametrize(argnames='T1, T50, RT', argvalues=[(0, 6, 1),
+                                                                (1, 6, 1),
+                                                                (1, 0, 0),
+                                                                (49, 5, 0)])
+    def test_C_input_return(self, T1:int, T50:int, RT:int):
+        my = PPM("DDD-1234")
+        my.money = 300
+        rt = 1
+        for i in range(T1):
+            rt = my.input(20,0)
+        for i in range(T50):
+            rt = my.input(28, 3)
+        assert rt == RT
