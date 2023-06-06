@@ -153,20 +153,20 @@ class PPM():
                 os.system('cls')
                 self.printStr2 = f'機台發生故障，以下是帳單\n\n{self.printStr}\n總共 {self.money} 元'
                 print(self.printStr2)
-                return 0
+                return 1
         else:
             self.nowMoney = 0
             self.printStr2 = '執行退幣動作'
             print(self.printStr2)
             return 1
 
-if __name__ == '__main__':
-    os.system('cls')
-    my = PPM("DDD-1234")
-    my.setStartTime('2023-05-22 00:00:00')
-    my.setEndTime('2023-05-23 00:00:00')
-    my.needMoney()
-    print(my.check())
-    while(my.input(28,3) == 0):
-        time.sleep(1)
-    my.checkPay()
+# if __name__ == '__main__':
+#     os.system('cls')
+#     my = PPM("DDD-1234")
+#     my.setStartTime('2023-05-22 00:00:00')
+#     my.setEndTime('2023-05-23 00:00:00')
+#     my.needMoney()
+#     print(my.check())
+#     while(my.input(28,3) == 0):
+#         time.sleep(1)
+#     my.checkPay()
