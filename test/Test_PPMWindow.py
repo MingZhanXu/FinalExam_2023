@@ -1,10 +1,11 @@
 import sys
 import os
+import pytest
 print(os.path.abspath(os.path.dirname(os.getcwd())))
 sys.path.append(rf"{os.path.abspath(os.path.dirname(os.getcwd()))}/FinalExam_2023")
 from PPM_window import keyboardWindow
 from PySide6.QtGui import  Qt
-import pytest
+from time import sleep
 #測試鍵盤
 @pytest.mark.keyboard
 class Test_keyboard():
@@ -117,3 +118,23 @@ class Test_keyboard():
             assert (printTxt == "查無此資料，十秒後返回")
         else:
             assert (printTxt == app.PW.PPM.check())
+
+@pytest.mark.btn_check
+class Test_btn_check():
+    @pytest.mark.btn_check_date
+    @pytest.mark.parametrize(argnames='keyStr, delay',
+                             argvalues=[("AAA1234", 1),
+                                        ('AAA1234', 10)])
+    def test_btn_check_data(self, qtbot, keyStr:str, delay:int):
+        app = keyboardWindow()
+        qtbot.addWidget(app)
+        for AZN in keyStr:
+            if (AZN >= "0" and AZN <= "9"):
+                btn = "btn_n" + AZN
+            else:
+                btn = "btn_" + AZN
+            qtbot.mouseClick(getattr(app.ui,btn), Qt.LeftButton)
+        qtbot.mouseClick(app.ui.btn_inquire, Qt.LeftButton)
+        qtbot.mouseClick(app.PW.ui.btn_check, Qt.LeftButton)
+        app.PW.time -= delay * 1000
+        assert (app.PW.time < (15000 - (delay * 1000)) and app.PW.time >= (9500 - (delay * 1000)))
