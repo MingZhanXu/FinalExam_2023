@@ -34,7 +34,7 @@ class PPM_DB():
             if(len(RT) == 0):
                 RT = "error"
             else:
-                RT = DT.strftime("%Y-%m-%d %H:%M:%S", time.localtime(RT[0][0]))
+                RT = DT.strftime(RT[0][0], '%Y-%m-%d %H:%M:%S')
         else:
             RT = "error"
         return RT
@@ -46,7 +46,7 @@ class PPM_DB():
             if(len(RT) == 0):
                 RT = "error"
             else:
-                RT = DT.strftime("%Y-%m-%d %H:%M:%S", time.localtime(RT[0][0]))
+                RT = DT.strftime(RT[0][0], '%Y-%m-%d %H:%M:%S')
         else:
             RT = "error"
         return RT
