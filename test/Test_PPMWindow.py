@@ -95,8 +95,8 @@ class Test_keyboard():
     @pytest.mark.keyboard_inquire
     @pytest.mark.keyboard_inquire_PW_label_print
     @pytest.mark.parametrize(argnames='keyStr, error',argvalues = [["ABC1234", 0],
-                                                                   ["ABC1234", 0],
-                                                                   ["ABC1234", 0]])
+                                                                   ["AAA0123", 0],
+                                                                   ["ABC123", 1]])
     #error代表資料錯誤(車牌格式)
     def test_keyInquire_PW_label_print(self,qtbot, keyStr:str, error:int):
         app = keyboardWindow()
@@ -113,7 +113,7 @@ class Test_keyboard():
             assert (printTxt == "")
         elif(app.PW.db.connect == False):
             assert (printTxt == "查無此資料，十秒後返回")
-        elif(app.PW.startT == "" or app.PW.stopT == ""):
+        elif(app.startT == "error" or app.stopT == "error"):
             assert (printTxt == "查無此資料，十秒後返回")
         else:
             assert (printTxt == app.PW.PPM.check())
